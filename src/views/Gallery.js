@@ -15,133 +15,14 @@
   }
   ```
 */
+import React from "react";
+import * as Api from "../api/api"
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+import * as API from "../api/api";
 
-// const navigation = {
-//   categories: [
-//     {
-//       id: 'women',
-//       name: 'Women',
-//       featured: [
-//         {
-//           name: 'New Arrivals',
-//           href: '#',
-//           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-//           imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-//         },
-//         {
-//           name: 'Basic Tees',
-//           href: '#',
-//           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-//           imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-//         },
-//       ],
-//       sections: [
-//         {
-//           id: 'clothing',
-//           name: 'Clothing',
-//           items: [
-//             { name: 'Tops', href: '#' },
-//             { name: 'Dresses', href: '#' },
-//             { name: 'Pants', href: '#' },
-//             { name: 'Denim', href: '#' },
-//             { name: 'Sweaters', href: '#' },
-//             { name: 'T-Shirts', href: '#' },
-//             { name: 'Jackets', href: '#' },
-//             { name: 'Activewear', href: '#' },
-//             { name: 'Browse All', href: '#' },
-//           ],
-//         },
-//         {
-//           id: 'accessories',
-//           name: 'Accessories',
-//           items: [
-//             { name: 'Watches', href: '#' },
-//             { name: 'Wallets', href: '#' },
-//             { name: 'Bags', href: '#' },
-//             { name: 'Sunglasses', href: '#' },
-//             { name: 'Hats', href: '#' },
-//             { name: 'Belts', href: '#' },
-//           ],
-//         },
-//         {
-//           id: 'brands',
-//           name: 'Brands',
-//           items: [
-//             { name: 'Full Nelson', href: '#' },
-//             { name: 'My Way', href: '#' },
-//             { name: 'Re-Arranged', href: '#' },
-//             { name: 'Counterfeit', href: '#' },
-//             { name: 'Significant Other', href: '#' },
-//           ],
-//         },
-//       ],
-//     },
-//     {
-//       id: 'men',
-//       name: 'Men',
-//       featured: [
-//         {
-//           name: 'New Arrivals',
-//           href: '#',
-//           imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-//           imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-//         },
-//         {
-//           name: 'Artwork Tees',
-//           href: '#',
-//           imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-//           imageAlt:
-//             'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-//         },
-//       ],
-//       sections: [
-//         {
-//           id: 'clothing',
-//           name: 'Clothing',
-//           items: [
-//             { name: 'Tops', href: '#' },
-//             { name: 'Pants', href: '#' },
-//             { name: 'Sweaters', href: '#' },
-//             { name: 'T-Shirts', href: '#' },
-//             { name: 'Jackets', href: '#' },
-//             { name: 'Activewear', href: '#' },
-//             { name: 'Browse All', href: '#' },
-//           ],
-//         },
-//         {
-//           id: 'accessories',
-//           name: 'Accessories',
-//           items: [
-//             { name: 'Watches', href: '#' },
-//             { name: 'Wallets', href: '#' },
-//             { name: 'Bags', href: '#' },
-//             { name: 'Sunglasses', href: '#' },
-//             { name: 'Hats', href: '#' },
-//             { name: 'Belts', href: '#' },
-//           ],
-//         },
-//         {
-//           id: 'brands',
-//           name: 'Brands',
-//           items: [
-//             { name: 'Re-Arranged', href: '#' },
-//             { name: 'Counterfeit', href: '#' },
-//             { name: 'Full Nelson', href: '#' },
-//             { name: 'My Way', href: '#' },
-//           ],
-//         },
-//       ],
-//     },
-//   ],
-//   pages: [
-//     { name: 'Company', href: '#' },
-//     { name: 'Stores', href: '#' },
-//   ],
-// }
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
   { name: 'Best Rating', href: '#', current: false },
@@ -193,27 +74,28 @@ const filters = [
     ],
   },
 ]
-const products = [
-  {
-    id: 1,
-    name: 'Nomad Pouch',
-    href: '#',
-    price: '$50',
-    availability: 'White and Black',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-07-product-01.jpg',
-    imageAlt: 'White fabric pouch with white zipper, black zipper pull, and black elastic loop.',
-  },
-  {
-    id: 2,
-    name: 'Zip Tote Basket',
-    href: '#',
-    price: '$140',
-    availability: 'Washed Black',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-07-product-02.jpg',
-    imageAlt: 'Front of tote bag with washed black canvas body, black straps, and tan leather handles and accents.',
-  },
-  // More products...
-]
+
+// const products = [
+//   {
+//     id: 1,
+//     name: 'Nomad Pouch',
+//     href: '/Product',
+//     price: '$50',
+//     availability: 'White and Black',
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-07-product-01.jpg',
+//     imageAlt: 'White fabric pouch with white zipper, black zipper pull, and black elastic loop.',
+//   },
+//   {
+//     id: 2,
+//     name: 'Zip Tote Basket',
+//     href: '/Product',
+//     price: '$140',
+//     availability: 'Washed Black',
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-07-product-02.jpg',
+//     imageAlt: 'Front of tote bag with washed black canvas body, black straps, and tan leather handles and accents.',
+//   },
+//   // More products...
+// ]
 
 
 function classNames(...classes) {
@@ -222,6 +104,12 @@ function classNames(...classes) {
 
 export default function Gallery() {
 
+  const [products,setproducts] = React.useState([])
+
+React.useEffect( async ()=>{
+  setproducts(await Api.ShowProducts());
+
+},[])
   return (
       <div className="bg-white">
 
@@ -353,16 +241,16 @@ export default function Gallery() {
               {/* Product grid */}
               <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:col-span-3 lg:gap-x-8">
                 {products.map((product) => (
-                  <a key={product.id} href={product.href} className="group text-sm">
+                  <a key={product._id} href={`/Product/${product._id}`} className="group text-sm">
                     <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-gray-100 group-hover:opacity-75">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={product.image[0]}
+                        alt=""
                         className="w-full h-full object-center object-cover"
                       />
                     </div>
-                    <h3 className="mt-4 font-medium text-gray-900">{product.name}</h3>
-                    <p className="text-gray-500 italic">{product.availability}</p>
+                    <h3 className="mt-4 font-medium text-gray-900">{product.title}</h3>
+                    <p className="text-gray-500 italic">{product.isActive ? "disponible" : "Non disponible"}</p>
                     <p className="mt-2 font-medium text-gray-900">{product.price}</p>
                   </a>
                 ))}

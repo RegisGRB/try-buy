@@ -1,18 +1,29 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CFooter from "../components/Footer/CFooter";
+import Enav from "../components/NavBar/ENav";
 
+import { routes } from "./Routes";
 
-import {routes} from "./Routes";
-
-const Router = ({children}) => {
+const Router = ({ children }) => {
   return (
     <BrowserRouter>
-        {children}
-        <Switch>
-          {routes.map((element,key)=>{
-            return <Route exact path={element.path} key={key} component={element.component} />
-          })}
-        </Switch>
+      <Enav></Enav>
+      {children}
+      <Switch>
+        {routes.map((element, key) => {
+          return (
+            <Route
+              exact
+              path={element.path}
+              key={key}
+              component={element.component}
+            />
+          );
+        })}
+        
+      </Switch>
+      <CFooter></CFooter>
     </BrowserRouter>
   );
 };

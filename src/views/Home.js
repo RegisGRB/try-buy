@@ -18,6 +18,7 @@ import {
   XIcon,
 } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import PwaInstall from '../components/PWAInstall/PwaInstall'
 
 
 const features = [
@@ -85,33 +86,33 @@ export default function Home() {
               <div className="absolute inset-0">
                 <img
                   className="h-full w-full object-cover"
-                  src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100"
+                  src="https://images.pexels.com/photos/9769861/pexels-photo-9769861.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                   alt="People working on laptops"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply" />
               </div>
               <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span className="block text-white">Take control of your</span>
-                  <span className="block text-indigo-200">customer support</span>
+                  <span className="block text-white">Try and buy</span>
+                  <span className="block text-indigo-200">Eco buying</span>
                 </h1>
                 <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
+                Try & buy est une application qui met en relation des particuliers qui souhaitent vendre leur articles de mode. L’acheteur dispose d’un délais de 1 semaine pour essayer et acheter son produit.
                 </p>
                 <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                   <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                    <a
+                  <PwaInstall className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8"></PwaInstall>
+                    {/* <a
                       href="#"
                       className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8"
                     >
-                      Get started
-                    </a>
+                      Get the App
+                    </a> */}
                     <a
                       href="#"
                       className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 sm:px-8"
                     >
-                      Live demo
+                      Go to the store
                     </a>
                   </div>
                 </div>
@@ -159,7 +160,7 @@ export default function Home() {
         </div>
 
         {/* Alternating Feature Sections */}
-        <div className="relative pt-16 pb-32 overflow-hidden">
+        {/* <div className="relative pt-16 pb-32 overflow-hidden">
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-gray-100" />
           <div className="relative">
             <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
@@ -265,10 +266,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Gradient Feature Section */}
-        <div className="bg-gradient-to-r from-purple-800 to-indigo-700">
+        {/* <div className="bg-gradient-to-r from-purple-800 to-indigo-700">
           <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
             <h2 className="text-3xl font-extrabold text-white tracking-tight">Inbox support built for efficiency</h2>
             <p className="mt-4 max-w-3xl text-lg text-purple-200">
@@ -291,7 +292,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Stats section */}
         <div className="relative bg-gray-900">
@@ -300,7 +301,7 @@ export default function Home() {
               <div className="h-full xl:relative xl:col-start-2">
                 <img
                   className="h-full w-full object-cover opacity-25 xl:absolute xl:inset-0"
-                  src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100"
+                  src="https://images.pexels.com/photos/6069083/pexels-photo-6069083.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                   alt="People working on laptops"
                 />
                 <div
@@ -326,14 +327,14 @@ export default function Home() {
                 lacus nibh integer quis. Eu vulputate diam sit tellus quis at.
               </p>
               <div className="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
-                {metrics.map((item) => (
+                {/* {metrics.map((item) => (
                   <p key={item.id}>
                     <span className="block text-2xl font-bold text-white">{item.stat}</span>
                     <span className="mt-1 block text-base text-gray-300">
                       <span className="font-medium text-white">{item.emphasis}</span> {item.rest}
                     </span>
                   </p>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

@@ -24,7 +24,18 @@ const routes = [
     component: Views.Test,
     protectedRoute: false,
   },
-
+  {
+    name:"Product",
+    path: "/Product/:id",
+    component: Views.Product,
+    protectedRoute: false,
+  },
+  {
+    name:"SignIn",
+    path: "/SignIn",
+    component: Views.SignIn,
+    protectedRoute: false,
+  },
 ];
 
 function checkroutes(attribute){
