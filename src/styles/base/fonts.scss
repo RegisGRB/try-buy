@@ -1,0 +1,45 @@
+@font-face {
+  font-family: $font-george-x;
+  src: url("../../assets/fonts/georgex-regular.woff2") format("woff2"),
+    url("../../assets/fonts/georgex-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-suisse-bp;
+  src: url("../../assets/fonts/suissebp-regular.woff2") format("woff2"),
+    url("../../assets/fonts/suissebp-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-suisse-bp;
+  src: url("../../assets/fonts/suissebp-light.woff2") format("woff2"),
+    url("../../assets/fonts/suissebp-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-suisse-bp;
+  src: url("../../assets/fonts/suissebp-light.woff2") format("woff2"),
+    url("../../assets/fonts/suissebp-light.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $MortendLight;
+  src: url("../../assets/fonts/MortendLight.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: $GLUSTER;
+  src: url("../../assets/fonts/GLUSTER.woff2") format("woff2");
+}

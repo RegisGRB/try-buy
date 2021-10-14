@@ -1,0 +1,100 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  user-select: none;
+
+}
+
+html {
+  height: -webkit-fill-available;
+  background: black;
+  color: $color-quarter-spanish-white;
+  line-height: 1;
+ 
+  position: relative;
+}
+
+// body {
+//   min-height: 100vh;
+//   min-height: -webkit-fill-available;
+//   @extend %description-16;
+//   font-family: $font-suisse-bp;
+//   position: relative;
+// }
+
+// a {
+//   color: inherit;
+//   outline: none;
+//   text-decoration: none;
+// }
+
+// canvas {
+//   pointer-events: none;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: z("canvas");
+// }
+// .wrapper {
+//   width: calc(100% - 16px);
+//   height: calc(100% - 64px);
+//   margin: 32px 8px;
+//   position: relative;
+// }
+// button {
+//   background: none;
+//   border: none;
+//   color: inherit;
+//   cursor: pointer;
+//   outline: none;
+// }
+// .cover{
+//   @extend %cover;
+// }
+// .center{
+//    @extend %center;
+// }
+// img,
+// video {
+//   opacity: 0;
+//   transition: opacity 0.4s ease;
+//   vertical-align: middle;
+
+//   &.loaded {
+//     opacity: 1;
+//   }
+// }
+// .loader {
+//   z-index: z("loader");
+// }
+// main {
+//   top: 0;
+//   left: 0;
+//   position: fixed;
+//   width: 100%;
+//   height: 100%;
+//   opacity: 0;
+//   visibility: hidden;
+//   z-index: z("content");
+// }
+
+// #root {
+// }
+// .content {
+//   @extend %cover;
+// }
+
+// [data-animation="label"],
+// [data-animation="paragraph"],
+// [data-animation="title"] {
+//   span {
+//     display: inline-block;
+//     overflow: hidden;
+//     vertical-align: top;
+//   }
+// }
+
+// .pute {
+//   @extend %title-200-p;
+// }
