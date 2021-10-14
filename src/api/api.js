@@ -112,7 +112,7 @@ export const makeOrder = (body, token) => {
   }).then((res) => res.json());
 };
 
-export const makeProduct = (body, token) => {
+export const CreateProduct = (body, token) => {
   return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/products/`, {
     method: "POST",
     headers: {
@@ -121,6 +121,18 @@ export const makeProduct = (body, token) => {
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
+};
+
+export const GetAllCateg = () => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/products/categories`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
 };
 
 // ------------------------------------------------------------------------------ //

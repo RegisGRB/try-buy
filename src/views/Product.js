@@ -36,65 +36,8 @@ import {
 import { StarIcon } from "@heroicons/react/solid";
 import { useParams } from "react-router-dom";
 import * as Api from "../api/api";
+import * as Cookies from "../api/cookies";
 
-// const product = {
-//   name: "Basic Tee",
-//   price: "$35",
-//   href: "#",
-//   breadcrumbs: [
-//     { id: 1, name: "Women", href: "#" },
-//     { id: 2, name: "Clothing", href: "#" },
-//   ],
-//   images: [
-//     {
-//       id: 1,
-//       imageSrc:
-//         "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-//       imageAlt: "Back of women's Basic Tee in black.",
-//       primary: true,
-//     },
-//     {
-//       id: 2,
-//       imageSrc:
-//         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg",
-//       imageAlt: "Side profile of women's Basic Tee in black.",
-//       primary: false,
-//     },
-//     {
-//       id: 3,
-//       imageSrc:
-//         "https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg",
-//       imageAlt: "Front of women's Basic Tee in black.",
-//       primary: false,
-//     },
-//   ],
-//   colors: [
-//     { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
-//     {
-//       name: "Heather Grey",
-//       bgColor: "bg-gray-400",
-//       selectedColor: "ring-gray-400",
-//     },
-//   ],
-//   sizes: [
-//     { name: "XXS", inStock: true },
-//     { name: "XS", inStock: true },
-//     { name: "S", inStock: true },
-//     { name: "M", inStock: true },
-//     { name: "L", inStock: true },
-//     { name: "XL", inStock: false },
-//   ],
-//   description: `
-//     <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-//     <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-//   `,
-//   details: [
-//     "Only the best materials",
-//     "Ethically and locally made",
-//     "Pre-washed and pre-shrunk",
-//     "Machine wash cold with similar colors",
-//   ],
-// };
 const policies = [
   {
     name: "International delivery",
@@ -148,6 +91,7 @@ function classNames(...classes) {
 export default function Example() {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState({
+    id: "",
     title: "",
     image: [],
   });
@@ -323,6 +267,9 @@ export default function Example() {
               </div>
 
               <button
+                onClick={() => {
+                  Cookies.AddCart(product);
+                }}
                 type="submit"
                 className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >

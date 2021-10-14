@@ -1,32 +1,32 @@
 import React from "react";
 import * as API from "../../api/api";
+import * as Cookies from "../../api/cookies";
 const Sign = ({ openModale, setopenModale }) => {
   const [IsRegiser, setIsRegiser] = React.useState(false);
 
+  const Login = async (e) => {
+    e.preventDefault();
 
-    const Login = async (e) =>{
-        e.preventDefault()
-    
-       let x= await API.login({
-            email: e.target.elements.email.value,
-            password:e.target.elements.password.value
-         })
-         console.log(x)
-    }
+    let x = await API.login({
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+    });
+    Cookies.Auth(x.token, x.expiration);
+    setopenModale(false);
+  };
 
+  const Regiser = async (e) => {
+    e.preventDefault();
 
-    const Regiser = async (e) =>{
-      e.preventDefault()
-
-      let x = await API.register({
-        lastname:e.target.elements.lastname.value,
-        firstname:e.target.elements.firstname.value,
-        adresse:e.target.elements.adresse.value,
-        telephone:e.target.elements.telephone.value,
-        email: e.target.elements.email.value,
-        password:e.target.elements.password.value
-      })
-    }
+    let x = await API.register({
+      lastname: e.target.elements.lastname.value,
+      firstname: e.target.elements.firstname.value,
+      adresse: e.target.elements.adresse.value,
+      telephone: e.target.elements.telephone.value,
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+    });
+  };
 
   return (
     <>
@@ -62,7 +62,7 @@ const Sign = ({ openModale, setopenModale }) => {
                   </a>
                 </p> */}
               </div>
-              <form className="space-y-6 " onSubmit={Login} action="#" method="POST">
+              <form className="space-y-6 " onSubmit={Login}>
                 <div className="pt-4">
                   <label
                     htmlFor="email"
@@ -191,7 +191,12 @@ const Sign = ({ openModale, setopenModale }) => {
                   </a>
                 </p> */}
               </div>
-              <form className="space-y-6 " onSubmit={Regiser} action="#" method="POST">
+              <form
+                className="space-y-6 "
+                onSubmit={Regiser}
+                action="#"
+                method="POST"
+              >
                 <div className="flex">
                   <div className="pr-2 pt-4">
                     <label

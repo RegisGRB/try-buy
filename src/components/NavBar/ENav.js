@@ -21,16 +21,17 @@ import {
   ViewGridIcon,
 } from "@heroicons/react/solid";
 import Sign from "../Sign/Sign";
+import * as Cookies from "../../api/cookies";
 const Enav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [OpenModale, setOpenModale] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
- const handleOpen=(x)=>{
-    setOpenModale(x)
-  }
+  const handleOpen = (x) => {
+    setOpenModale(x);
+  };
   return (
     <>
-      <Sign openModale={OpenModale} setopenModale={handleOpen }></Sign>
+      <Sign openModale={OpenModale} setopenModale={handleOpen}></Sign>
       <div className="bg-white">
         {/* Mobile menu */}
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
@@ -370,22 +371,32 @@ const Enav = () => {
 
                 <div className="ml-auto flex items-center">
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a
-                         onClick={() => {
+                    {!Cookies.getAuth() && (
+                      <a
+                        onClick={() => {
                           setOpenModale(true);
                         }}
-                      href="#"
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      Sign in
-                    </a>
+                        href="#"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Sign in
+                      </a>
+                    )}
+                    {Cookies.getAuth() && (
+                      <a
+                        href="/Profile"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Account
+                      </a>
+                    )}
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a
+                    {/* <a
                       href="#"
                       className="text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       Create account
-                    </a>
+                    </a> */}
                   </div>
 
                   <div className="hidden lg:ml-8 lg:flex">

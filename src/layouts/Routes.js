@@ -1,39 +1,45 @@
 import * as Views from "../views";
 const routes = [
   {
-    name:"Home",
+    name: "Home",
     path: "/",
     component: Views.Home,
     protectedRoute: false,
   },
   {
-    name:"Gallery",
+    name: "Gallery",
     path: "/Gallery",
     component: Views.Gallery,
     protectedRoute: false,
   },
   {
-    name:"Order",
+    name: "Order",
     path: "/Order",
     component: Views.Order,
     protectedRoute: false,
   },
   {
-    name:"Test",
+    name: "Test",
     path: "/Test",
     component: Views.Test,
     protectedRoute: false,
   },
   {
-    name:"Product",
+    name: "Product",
     path: "/Product/:id",
     component: Views.Product,
     protectedRoute: false,
   },
   {
-    name:"SignIn",
+    name: "SignIn",
     path: "/SignIn",
     component: Views.SignIn,
+    protectedRoute: false,
+  },
+  {
+    name: "Profile",
+    path: "/Profile",
+    component: Views.Profile,
     protectedRoute: false,
   },
 ];
