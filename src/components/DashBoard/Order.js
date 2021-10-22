@@ -6,7 +6,7 @@
 
 import { PaperClipIcon } from '@heroicons/react/solid'
 
-export default function Example() {
+const Order = ()=> {
   return (
     <div className="bg-white">
       <div>
@@ -75,7 +75,7 @@ export default function Example() {
 }
 
 
-
+export default Order
 
 
 

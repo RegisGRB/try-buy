@@ -18,18 +18,33 @@ export const register = (body) => {
   }).then((res) => res.json());
 };
 
-export const getMe = (id, token) => {
-  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/user/${id}`, {
+export const getMe = (token) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/user`, {
     headers: {
       "x-access-token": token,
     },
   }).then((res) => res.json());
 };
-
+export const AddBuyers = (id,token) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/products/${id}/buyer/add`, {
+    method: "GET",
+    headers: {
+      "x-access-token": token,
+    },
+  }).then((res) => res.json());
+};
+export const ContainBuyers = (id,token) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/products/${id}/buyer/contains`, {
+    method: "GET",
+    headers: {
+      "x-access-token": token,
+    },
+  }).then((res) => res.json());
+};
 // ------------------------------------------------------------------------------ //
 
-export const editUser = (id, token, body) => {
-  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/user/${id}`, {
+export const editUser = (token, body) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/user`, {
     method: "PATCH",
     headers: {
       "x-access-token": token,
@@ -125,7 +140,7 @@ export const CreateProduct = (body, token) => {
 
 export const GetAllCateg = () => {
   return fetch(
-    `https://ynov-fullstack.herokuapp.com/api/v1/products/categories`,
+    `https://ynov-fullstack.herokuapp.com/api/v1/categories`,
     {
       method: "GET",
       headers: {
@@ -135,6 +150,44 @@ export const GetAllCateg = () => {
   ).then((res) => res.json());
 };
 
+export const GetProductByUser = (token) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/products/seller`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
+export const GetBuyesByProduct = (id,token) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/products/${id}/buyers`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
+
+export const CreateOrder = ({buyer,product,token}) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/orders`,
+    {
+      method: "POST",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({buyer:buyer,product:product}),
+    }
+  ).then((res) => res.json());
+};
 // ------------------------------------------------------------------------------ //
 
 export const adminShowOrders = (token) => {

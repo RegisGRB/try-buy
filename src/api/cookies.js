@@ -2,7 +2,7 @@ import Cookies from "universal-cookie";
 
 export const Auth = (token, expires) => {
   const cookies = new Cookies();
-
+  
   cookies.set("token", token, { expires: new Date(expires) });
 };
 
@@ -11,6 +11,10 @@ export const getAuth = () => {
   return cookies.get("token");
 };
 
+export const Disconnect = () => {
+  const cookies = new Cookies();
+  return cookies.remove("token");
+};
 export const AddCart = (product) => {
   // -------------------------- ADD CART
   const cookies = new Cookies();

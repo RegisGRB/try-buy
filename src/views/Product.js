@@ -17,23 +17,9 @@
   ```
 */
 import React, { useState } from "react";
-import {
-  Dialog,
-  Popover,
-  RadioGroup,
-  Tab,
-  Transition,
-} from "@headlessui/react";
-import {
-  CurrencyDollarIcon,
-  GlobeIcon,
-  MenuIcon,
-  SearchIcon,
-  ShoppingBagIcon,
-  UserIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import { StarIcon } from "@heroicons/react/solid";
+import { RadioGroup } from "@headlessui/react";
+import { CurrencyDollarIcon, GlobeIcon } from "@heroicons/react/outline";
+
 import { useParams } from "react-router-dom";
 import * as Api from "../api/api";
 import * as Cookies from "../api/cookies";
@@ -50,38 +36,6 @@ const policies = [
     description: "Don't look at other tees",
   },
 ];
-const reviews = {
-  average: 3.9,
-  totalCount: 512,
-  featured: [
-    {
-      id: 1,
-      title: "Can't say enough good things",
-      rating: 5,
-      content: `
-        <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-        <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-      `,
-      author: "Risako M",
-      date: "May 16, 2021",
-      datetime: "2021-01-06",
-    },
-    // More reviews...
-  ],
-};
-const relatedProducts = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg",
-    imageAlt: "Front of men's Basic Tee in white.",
-    price: "$35",
-    color: "Aspen White",
-  },
-  // More products...
-];
 
 const Sizes = ["XXS", "XS", "S", "M", "L", "XL"];
 function classNames(...classes) {
@@ -91,19 +45,32 @@ function classNames(...classes) {
 export default function Example() {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState({
-    id: "",
+    _id: "",
     title: "",
     image: [],
   });
   const [selectedColor, setSelectedColor] = useState();
   const [selectedSize, setSelectedSize] = useState();
-
+  const [BuyerContain, setBuyerContain] = useState(false);
   let { id } = useParams();
-  React.useEffect(async () => {
-    setProduct(await Api.ShowProductById(id));
+  const handleAddBuyer = async () => {
+  
+    await Api.AddBuyers(id, Cookies.getAuth());
+    setBuyerContain(true);
+  };
+  const init = async () =>{
+    let x = await Api.ShowProductById(id)
+    setProduct(x.product);
+    setBuyerContain(await Api.ContainBuyers(id, Cookies.getAuth()));
+
     setSelectedColor(product.color);
     setSelectedSize(product.size);
+  }
+
+  React.useEffect( () => {
+    init()
   }, [id]);
+
 
   return (
     <div className="bg-white">
@@ -178,7 +145,7 @@ export default function Example() {
           </div>
 
           <div className="mt-8 lg:col-span-5">
-            <form>
+       
               {/* Color picker */}
               <div>
                 <h2 className="text-sm font-medium text-gray-900">Color</h2>
@@ -265,17 +232,17 @@ export default function Example() {
                   </div>
                 </RadioGroup>
               </div>
-
-              <button
-                onClick={() => {
-                  Cookies.AddCart(product);
-                }}
-                type="submit"
-                className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Add to cart
-              </button>
-            </form>
+              {!BuyerContain && (
+                <button
+                  onClick={() => {
+                    handleAddBuyer(product._id);
+                  }}
+           
+                  className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+           Show Interest
+                </button>
+              )}
 
             {/* Product details */}
             {/* <div className="mt-10">

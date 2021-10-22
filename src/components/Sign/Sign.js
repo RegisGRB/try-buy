@@ -1,9 +1,10 @@
 import React from "react";
 import * as API from "../../api/api";
 import * as Cookies from "../../api/cookies";
-const Sign = ({ openModale, setopenModale }) => {
+import Alert from "../Alert/Alert";
+const Sign = ({ openModale, setopenModale, success }) => {
   const [IsRegiser, setIsRegiser] = React.useState(false);
-
+  const [ErrorMessage, setErrorMessage] = React.useState("");
   const Login = async (e) => {
     e.preventDefault();
 
@@ -11,8 +12,14 @@ const Sign = ({ openModale, setopenModale }) => {
       email: e.target.elements.email.value,
       password: e.target.elements.password.value,
     });
-    Cookies.Auth(x.token, x.expiration);
-    setopenModale(false);
+    if (x.success) {
+      Cookies.Auth(x.token, x.expiration);
+      setopenModale(false);
+      success(true);
+      setErrorMessage("")
+    }else{
+      setErrorMessage(x.message)
+    }
   };
 
   const Regiser = async (e) => {
@@ -26,6 +33,18 @@ const Sign = ({ openModale, setopenModale }) => {
       email: e.target.elements.email.value,
       password: e.target.elements.password.value,
     });
+    if (x.success) {
+      let x = await API.login({
+        email: e.target.elements.email.value,
+        password: e.target.elements.password.value,
+      });
+      Cookies.Auth(x.token, x.expiration);
+      setopenModale(false);
+      success(true);
+      setErrorMessage("")
+    }else{
+      setErrorMessage(x.message)
+    }
   };
 
   return (
@@ -102,7 +121,9 @@ const Sign = ({ openModale, setopenModale }) => {
                     />
                   </div>
                 </div>
-
+                <div >
+                <span className="text-red-400"> {ErrorMessage}</span>
+                </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
@@ -148,6 +169,7 @@ const Sign = ({ openModale, setopenModale }) => {
                     <span
                       className="px-2 bg-white text-gray-500"
                       onClick={() => {
+                        setErrorMessage("");
                         setIsRegiser(!IsRegiser);
                       }}
                     >
@@ -305,7 +327,9 @@ const Sign = ({ openModale, setopenModale }) => {
                     />
                   </div>
                 </div>
-
+                <div >
+                 <span className="text-red-400"> {ErrorMessage}</span>
+                </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
@@ -351,6 +375,7 @@ const Sign = ({ openModale, setopenModale }) => {
                     <span
                       className="px-2 bg-white text-gray-500"
                       onClick={() => {
+                        setErrorMessage("");
                         setIsRegiser(!IsRegiser);
                       }}
                     >

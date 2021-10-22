@@ -40,7 +40,7 @@ const routes = [
     name: "Profile",
     path: "/Profile",
     component: Views.Profile,
-    protectedRoute: false,
+    protectedRoute: true,
   },
 ];
 

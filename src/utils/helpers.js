@@ -12,6 +12,18 @@
     }
     return array;
   }
+  export function generateKey (prefix) {
+   return [
+      `${prefix}`,
+      getrandomInt(100),
+      getrandomInt(100),
+      getrandomInt(100),
+      getrandomInt(100),
+      getrandomInt(100),
+     
+    ].join('')
+   
+  }
   export function normalizeValue (val, max, min){
     return (val - min) / (max - min);
   }

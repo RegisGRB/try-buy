@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Dialog,
   Disclosure,
@@ -22,16 +22,92 @@ import {
 } from "@heroicons/react/solid";
 import Sign from "../Sign/Sign";
 import * as Cookies from "../../api/cookies";
+import { useHistory } from "react-router-dom";
+import * as API from "../../api/api";
+import * as helpers from "../../utils/helpers";
 const Enav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [OpenModale, setOpenModale] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [login, setlogin] = useState(Cookies.getAuth());
+  const [categories, setCategories] = React.useState([]);
+
+  let history = useHistory();
+
+  const Disconnect = async () => {
+        Cookies.Disconnect();
+        handleLogin(false);
+        history.push("/Gallery");
+
+  };
   const handleOpen = (x) => {
     setOpenModale(x);
   };
+  const handleLogin = (x) => {
+    setlogin(x);
+  };
+
+  const GetCateg = async () => {
+    let x = await API.GetAllCateg()
+    setCategories(x.category)
+  };
+  React.useEffect(() => {
+    GetCateg();
+  }, []);
+  React.useEffect(() => {
+
+  }, [login]);
+
+  const GetCategJSX = () => {
+    let i = 0;
+    let index = [];
+    let length = categories.length;
+    let array = [];
+    let x = 0;
+
+    if (length > 0) {
+      while (i < 4) {
+        x = Math.floor(Math.random() * Math.floor(length));
+        if (!index.includes(x)) {
+          array.push(
+            <div
+              key={helpers.generateKey("categ")}
+              className="group relative text-base sm:text-sm"
+            >
+              <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
+                <img
+                  src={categories[x].image}
+                  alt={categories[x].image}
+                  className="object-center object-cover"
+                />
+              </div>
+              <a
+                href={categories[x].name}
+                className="mt-6 block font-medium text-gray-900"
+              >
+                <span className="absolute z-10 inset-0" aria-hidden="true" />
+                {categories[x].name}
+              </a>
+              <p aria-hidden="true" className="mt-1">
+                Shop now
+              </p>
+            </div>
+          );
+          index.push(x);
+          i++;
+        }
+      }
+    }
+
+    return array;
+  };
   return (
     <>
-      <Sign openModale={OpenModale} setopenModale={handleOpen}></Sign>
+      <Sign
+        openModale={OpenModale}
+        setopenModale={handleOpen}
+        success={handleLogin}
+      ></Sign>
       <div className="bg-white">
         {/* Mobile menu */}
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
@@ -129,7 +205,7 @@ const Enav = () => {
                             </div>
                           ))}
                         </div>
-                        {category.sections.map((section) => (
+                        {/* {category.sections.map((section) => (
                           <div key={section.name}>
                             <p
                               id={`${category.id}-${section.id}-heading-mobile`}
@@ -154,7 +230,26 @@ const Enav = () => {
                               ))}
                             </ul>
                           </div>
-                        ))}
+                        ))} */}
+
+                        <div>
+                          <ul
+                            role="list"
+                            aria-labelledby={`heading-mobile`}
+                            className="mt-6 flex flex-col space-y-6"
+                          >
+                            {categories.map((item) => (
+                              <li key={item} className="flow-root">
+                                <a
+                                  href={item}
+                                  className="-m-2 p-2 block text-gray-500"
+                                >
+                                  {item}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </Tab.Panel>
                     ))}
                   </Tab.Panels>
@@ -283,41 +378,13 @@ const Enav = () => {
 
                                 <div className="relative bg-white">
                                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                                      <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                        {category.featured.map((item) => (
-                                          <div
-                                            key={item.name}
-                                            className="group relative text-base sm:text-sm"
-                                          >
-                                            <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                              <img
-                                                src={item.imageSrc}
-                                                alt={item.imageAlt}
-                                                className="object-center object-cover"
-                                              />
-                                            </div>
-                                            <a
-                                              href={item.href}
-                                              className="mt-6 block font-medium text-gray-900"
-                                            >
-                                              <span
-                                                className="absolute z-10 inset-0"
-                                                aria-hidden="true"
-                                              />
-                                              {item.name}
-                                            </a>
-                                            <p
-                                              aria-hidden="true"
-                                              className="mt-1"
-                                            >
-                                              Shop now
-                                            </p>
-                                          </div>
-                                        ))}
+                                    <div className="grid  gap-y-10  py-16">
+                                      <div className=" grid grid-cols-4 gap-x-8">
+                                        {GetCategJSX()}
                                       </div>
-                                      <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                        {category.sections.map((section) => (
+
+                                      {/* <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm"> */}
+                                      {/* {category.sections.map((section) => (
                                           <div key={section.name}>
                                             <p
                                               id={`${section.name}-heading`}
@@ -345,8 +412,9 @@ const Enav = () => {
                                               ))}
                                             </ul>
                                           </div>
-                                        ))}
-                                      </div>
+                                        ))} */}
+
+                                      {/* </div> */}
                                     </div>
                                   </div>
                                 </div>
@@ -371,7 +439,7 @@ const Enav = () => {
 
                 <div className="ml-auto flex items-center">
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    {!Cookies.getAuth() && (
+                    { !login && !Cookies.getAuth() && (
                       <a
                         onClick={() => {
                           setOpenModale(true);
@@ -382,13 +450,24 @@ const Enav = () => {
                         Sign in
                       </a>
                     )}
-                    {Cookies.getAuth() && (
-                      <a
-                        href="/Profile"
-                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                      >
-                        Account
-                      </a>
+                    {  login && Cookies.getAuth() && (
+                      <>
+                        <a
+                          href="/Profile"
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Account
+                        </a>
+                        <a
+                          onClick={() => {
+                            Disconnect();
+                          }}
+                          href="#"
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Disconnect
+                        </a>
+                      </>
                     )}
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                     {/* <a
@@ -457,8 +536,8 @@ function classNames(...classes) {
 const navigation = {
   categories: [
     {
-      id: "women",
-      name: "Women",
+      id: "Categories",
+      name: "Categories",
       featured: [
         {
           name: "New Arrivals",
@@ -518,65 +597,7 @@ const navigation = {
         },
       ],
     },
-    {
-      id: "men",
-      name: "Men",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt:
-            "Drawstring top with elastic loop closure and textured interior padding.",
-        },
-        {
-          name: "Artwork Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-          ],
-        },
-      ],
-    },
+  
   ],
   pages: [{ name: "Stores", href: "/Gallery" }],
 };
