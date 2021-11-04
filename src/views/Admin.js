@@ -31,15 +31,11 @@ import Order from "../components/DashBoard/Order";
 import EditProduct from "../components/DashBoard/EditProduct";
 import Alert from "../components/Alert/Alert"
 import Buying from "../components/DashBoard/Buying"
-import PaidProduct from "../components/DashBoard/PaidProduct"
-import Interrest from "../components/DashBoard/Interrest"
 const navigation = [
   { name: "Account", icon: UserCircleIcon },
-  { name: "Interrest", icon: CreditCardIcon },
+  // { name: "Selling", icon: KeyIcon },
   { name: "Selling", icon: CreditCardIcon },
   { name: "Buying", icon: CreditCardIcon },
-  { name: "Paid Product", icon: CreditCardIcon },
-
 ];
 
 function classNames(...classes) {
@@ -48,7 +44,6 @@ function classNames(...classes) {
 
 export default function Example() {
   let { dash } = useParams();
-  console.log(dash)
   const [form, setform] = React.useState(dash ? dash : "Account");
   const [buffer, setBuffer] = React.useState("");
   const [AlertopenStatus, setAlertopenStatus] = React.useState({
@@ -94,15 +89,11 @@ export default function Example() {
 
       <div className=" sm:px-6 lg:px-0 lg:col-span-9">
         <Alert openStatus={AlertopenStatus} setOpenStatus={handleAlert} ></Alert>
-        {form === "Buyers" && <Buyers id={buffer} setForm={setform} handleAlert={handleAlert}></Buyers>}
-        {form === "CreateSelling" && <CreateProduct setForm={setform} handleAlert={handleAlert}></CreateProduct>}
         {form === "Selling" && <ProductSelling setForm={setform} setBuffer={setBuffer}></ProductSelling>}
         {form === "Account" && (<EditProfile setForm={setform} handleAlert={handleAlert}></EditProfile>)}
         {form === "EditProduct" && (<EditProduct id={buffer} setForm={setform} handleAlert={handleAlert}></EditProduct>)}
         {form === "Order" && (<Order id={buffer}></Order>)}
         {form === "Buying" && (<Buying id={buffer} handleAlert={handleAlert}></Buying>)}
-        {form === "Paid Product" && (<PaidProduct id={buffer} handleAlert={handleAlert}></PaidProduct>)}
-        {form === "Interrest" && (<Interrest id={buffer} handleAlert={handleAlert}></Interrest>)}
       </div>
     </div>
   );

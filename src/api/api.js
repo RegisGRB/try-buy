@@ -103,11 +103,76 @@ export const deleteUser = (id, token) => {
     },
   }).then((res) => res.json());
 };
+export const isAdmin = (token) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/user/isAdmin`, {
+    method: "GET",
+    headers: {
+      "x-access-token": token,
+      "Content-Type": "Application/json",
+    },
 
+  }).then((res) => res.json());
+};
+export const GetOrderByProductId = ({id,token}) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/order/product/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
+export const GetOrderToBuy = ({token}) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/orders/buyer?status=En%20attente%20de%20paiement`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
+export const GetOrderPaid = ({token}) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/orders/buyer?status=Paiement%20terminé`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
+export const GetInterrestProduct = (token) => {
+  return fetch(
+    `https://ynov-fullstack.herokuapp.com/api/v1/products/buyer`,
+    {
+      method: "GET",
+      headers: {
+        "x-access-token": token,
+        "Content-Type": "Application/json",
+      },
+    }
+  ).then((res) => res.json());
+};
 // ------------------------------------------------------------------------------ //
 
 export const getUserOrders = (id, token) => {
   return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/order/user/${id}`, {
+    headers: {
+      "x-access-token": token,
+    },
+  }).then((res) => res.json());
+};
+
+export const GetBuyerOrders = ( token) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/order/user`, {
     headers: {
       "x-access-token": token,
     },

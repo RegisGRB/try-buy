@@ -10,6 +10,14 @@ export const getAuth = () => {
   const cookies = new Cookies();
   return cookies.get("token");
 };
+export const Admin = (value,expires) => {
+  const cookies = new Cookies();
+  cookies.set("admin", value, { expires: new Date(expires) });
+};
+export const getAdmin = () => {
+  const cookies = new Cookies();
+  return cookies.get("admin");
+};
 
 export const Disconnect = () => {
   const cookies = new Cookies();

@@ -2,8 +2,10 @@ import React from "react";
 import * as API from "../../api/api";
 import * as Cookies from "../../api/cookies";
 import Alert from "../Alert/Alert";
+import { useHistory } from "react-router";
 const Sign = ({ openModale, setopenModale, success }) => {
-  const [IsRegiser, setIsRegiser] = React.useState(false);
+  let history = useHistory()
+  const [IsRegister, setIsRegister] = React.useState(false);
   const [ErrorMessage, setErrorMessage] = React.useState("");
   const Login = async (e) => {
     e.preventDefault();
@@ -17,27 +19,24 @@ const Sign = ({ openModale, setopenModale, success }) => {
       setopenModale(false);
       success(true);
       setErrorMessage("")
+      history.push("/Gallery");
     }else{
       setErrorMessage(x.message)
     }
   };
 
-  const Regiser = async (e) => {
+  const Register = async (e) => {
     e.preventDefault();
 
     let x = await API.register({
       lastname: e.target.elements.lastname.value,
       firstname: e.target.elements.firstname.value,
-      adresse: e.target.elements.adresse.value,
-      telephone: e.target.elements.telephone.value,
+      address: e.target.elements.address.value,
+      phone: e.target.elements.telephone.value,
       email: e.target.elements.email.value,
       password: e.target.elements.password.value,
     });
     if (x.success) {
-      let x = await API.login({
-        email: e.target.elements.email.value,
-        password: e.target.elements.password.value,
-      });
       Cookies.Auth(x.token, x.expiration);
       setopenModale(false);
       success(true);
@@ -48,10 +47,10 @@ const Sign = ({ openModale, setopenModale, success }) => {
   };
 
   return (
-    <>
+    <div className="z-50">
       {/* Sign */}
 
-      {!IsRegiser && openModale && (
+      {!IsRegister && openModale && (
         <div className="min-h-screen  flex flex-col justify-center py-12 sm:px-6 lg:px-8 top-0 left-0 fixed z-10 min-w-full">
           <div
             className={
@@ -170,7 +169,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                       className="px-2 bg-white text-gray-500"
                       onClick={() => {
                         setErrorMessage("");
-                        setIsRegiser(!IsRegiser);
+                        setIsRegister(!IsRegister);
                       }}
                     >
                       Register
@@ -183,7 +182,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
         </div>
       )}
       {/* REGISER */}
-      {IsRegiser && openModale && (
+      {IsRegister && openModale && (
         <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 top-0 left-0 fixed min-w-full z-10">
           <div
             className={
@@ -215,17 +214,16 @@ const Sign = ({ openModale, setopenModale, success }) => {
               </div>
               <form
                 className="space-y-6 "
-                onSubmit={Regiser}
-                action="#"
-                method="POST"
+                onSubmit={Register}
+
               >
                 <div className="flex">
                   <div className="pr-2 pt-4">
                     <label
-                      htmlFor="firstName"
+                      htmlFor="firstname"
                       className="block text-sm font-medium text-black"
                     >
-                      FirstName
+                      Firstname
                     </label>
                     <div className="mt-1">
                       <input
@@ -239,15 +237,15 @@ const Sign = ({ openModale, setopenModale, success }) => {
                   </div>
                   <div className="pl-2 pt-4">
                     <label
-                      htmlFor="lastName"
+                      htmlFor="lastname"
                       className="block text-sm font-medium text-black"
                     >
-                      LastName
+                      Lastname
                     </label>
                     <div className="mt-1">
                       <input
-                        id="lastName"
-                        name="lastName"
+                        id="lastname"
+                        name="lastname"
                         type="text"
                         required
                         className="appearance-none block w-full px-3 py-2 border text-black border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -257,15 +255,16 @@ const Sign = ({ openModale, setopenModale, success }) => {
                 </div>
                 <div>
                   <label
-                    htmlFor="adresse"
+                    htmlFor="address"
                     className="block text-sm font-medium text-black"
                   >
-                    Adresse
+                    Address
                   </label>
                   <div className="mt-1">
                     <input
-                      id="adresse"
-                      name="adresse"
+          
+                      id="address"
+                      name="address"
                       type="text"
                       required
                       className="appearance-none block w-full px-3 py-2 border text-black border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -376,7 +375,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                       className="px-2 bg-white text-gray-500"
                       onClick={() => {
                         setErrorMessage("");
-                        setIsRegiser(!IsRegiser);
+                        setIsRegister(!IsRegister);
                       }}
                     >
                       Sign In
@@ -388,7 +387,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default Sign;

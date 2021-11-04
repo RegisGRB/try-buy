@@ -6,6 +6,9 @@
     "@craco/craco": "^6.3.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
+    "@mapbox/mapbox-gl-geocoder": "^4.7.4",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.20.3",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
@@ -13,16 +16,24 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "dotenv": "^10.0.0",
+    "emailjs-com": "^3.2.0",
     "glslify-loader": "^2.0.0",
     "gsap": "^3.7.1",
     "include-media": "^1.4.10",
+    "leaflet": "^1.7.1",
+    "mapbox-gl": "^2.5.1",
     "node-sass": "^6.0.1",
     "normalize-wheel": "^1.0.1",
+    "postcss": "^7.0.39",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-leaflet": "^3.2.2",
+    "react-mapbox-gl": "^5.1.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "stripe": "^8.184.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16",
     "three": "^0.132.2",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.2"
@@ -39,21 +50,12 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
-    "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
+    "@types/leaflet": "^1.7.5"
   }
 }

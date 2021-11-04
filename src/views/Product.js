@@ -16,13 +16,16 @@
   }
   ```
 */
+
+
 import React, { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CurrencyDollarIcon, GlobeIcon } from "@heroicons/react/outline";
 
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import * as Api from "../api/api";
 import * as Cookies from "../api/cookies";
+import Alert from "../components/Alert/Alert";
 
 const policies = [
   {
@@ -43,6 +46,7 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  let history = useHistory()
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState({
     _id: "",
@@ -51,27 +55,51 @@ export default function Example() {
   });
   const [selectedColor, setSelectedColor] = useState();
   const [selectedSize, setSelectedSize] = useState();
-  const [BuyerContain, setBuyerContain] = useState(false);
+  const [BuyerContain, setBuyerContain] = useState(true);
+  const [Connected, setConnected] = useState(false);
+
   let { id } = useParams();
-  const handleAddBuyer = async () => {
-  
-    await Api.AddBuyers(id, Cookies.getAuth());
-    setBuyerContain(true);
-  };
+
   const init = async () =>{
     let x = await Api.ShowProductById(id)
     setProduct(x.product);
-    setBuyerContain(await Api.ContainBuyers(id, Cookies.getAuth()));
+    if(Cookies.getAuth()){
+      setConnected(true)
+      setBuyerContain(await Api.ContainBuyers(id, Cookies.getAuth()));
+    }else{
+      setConnected(false)
+    }
+
+  
 
     setSelectedColor(product.color);
     setSelectedSize(product.size);
   }
-
+  const [AlertopenStatus, setAlertopenStatus] = React.useState({
+    success:true,
+    open:false,
+    message:""
+  });
+  const handleAlert = (e) =>{
+    setAlertopenStatus(e)
+  }
   React.useEffect( () => {
     init()
   }, [id]);
 
+  const handleAddBuyer = async () => {
+  
+    let x = await Api.AddBuyers(id, Cookies.getAuth());
+     setBuyerContain(true);
 
+     handleAlert(
+       {
+         success:x.success,
+         open:true,
+         message:"En attente de la réponse de l'annonceur"
+       }
+     )
+   };
   return (
     <div className="bg-white">
       <main className="pt-20 max-w-2xl mx-auto pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -121,6 +149,7 @@ export default function Example() {
               </div>
             </div> */}
           </div>
+          <Alert openStatus={AlertopenStatus} setOpenStatus={handleAlert} ></Alert>
 
           {/* Image gallery */}
           <div className="mt-8 lg:mt-0 lg:col-start-1 lg:col-span-7 lg:row-start-1 lg:row-span-3">
@@ -236,14 +265,22 @@ export default function Example() {
                 <button
                   onClick={() => {
                     handleAddBuyer(product._id);
+              
                   }}
            
                   className="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-           Show Interest
+                   Show Interest
                 </button>
               )}
-
+       {!Connected && (
+                <h1
+           
+                  className="mt-8 w-full text-black border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium "
+                >
+                  Connecter vous pour acheter
+                </h1>
+              )}
             {/* Product details */}
             {/* <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Description</h2>

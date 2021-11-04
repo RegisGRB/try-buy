@@ -1,24 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 import { ContextContainer } from "./context";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Router from "./layouts/Router"
-import Enav from './components/NavBar/ENav';
-import CFooter from './components/Footer/CFooter';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Router from "./layouts/Router";
+import Enav from "./components/NavBar/ENav";
+import CFooter from "./components/Footer/CFooter";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 ReactDOM.render(
   <React.StrictMode>
     <ContextContainer>
-    <Router>
-   
-       <App></App>
-    
+      <Router>
+        <App></App>
       </Router>
     </ContextContainer>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 serviceWorkerRegistration.register();

@@ -38,9 +38,11 @@ import {
   MinusSmIcon,
   PlusSmIcon,
   ViewGridIcon,
+  MapIcon,
 } from "@heroicons/react/solid";
 import * as API from "../api/api";
-
+import ListGallery from "../components/Gallery/ListGallery";
+import MapGallery from "../components/Gallery/MapGallery";
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
@@ -93,27 +95,25 @@ const filters = [
   },
 ];
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Gallery() {
   const [products, setproducts] = React.useState([]);
-
-
-
+  const [Mode, setMode] = React.useState("List");
+ 
   React.useEffect(async () => {
-    let x =await Api.ShowProducts()
-    setproducts(x.product)
-
+    let x = await Api.ShowProducts();
+    setproducts(x.product);
   }, []);
   return (
     <div className="bg-white">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
+       
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-            New Arrivals
+         { Mode === "List" ? "New Arrivals" : "Product in your Zone"}
           </h1>
 
           <div className="flex items-center">
@@ -167,7 +167,19 @@ export default function Gallery() {
               className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">View grid</span>
-              <ViewGridIcon className="w-5 h-5" aria-hidden="true" />
+              {Mode === "List" ? (
+                <MapIcon
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  onClick={() => setMode("Map")}
+                />
+              ) : (
+                <ViewGridIcon
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  onClick={() => setMode("List")}
+                />
+              )}
             </button>
             <button
               type="button"
@@ -185,107 +197,89 @@ export default function Gallery() {
             Products
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
-            {/* Filters */}
-            <form className="hidden lg:block">
-              <h3 className="sr-only">Categories</h3>
-              <ul
-                role="list"
-                className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
-              >
-                {subCategories.map((category) => (
-                  <li key={category.name}>
-                    <a href={category.href}>{category.name}</a>
-                  </li>
-                ))}
-              </ul>
-
-              {filters.map((section) => (
-                <Disclosure
-                  as="div"
-                  key={section.id}
-                  className="border-b border-gray-200 py-6"
+          <div className={`grid grid-cols-1 ${Mode === "List" ? "lg:grid-cols-4" : ""}  gap-x-8 gap-y-10`}>
+            {Mode === "List" ? (
+              <form className="hidden lg:block">
+                <h3 className="sr-only">Categories</h3>
+                <ul
+                  role="list"
+                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
                 >
-                  {({ open }) => (
-                    <>
-                      <h3 className="-my-3 flow-root">
-                        <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-                          <span className="font-medium text-gray-900">
-                            {section.name}
-                          </span>
-                          <span className="ml-6 flex items-center">
-                            {open ? (
-                              <MinusSmIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            ) : (
-                              <PlusSmIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            )}
-                          </span>
-                        </Disclosure.Button>
-                      </h3>
-                      <Disclosure.Panel className="pt-6">
-                        <div className="space-y-4">
-                          {section.options.map((option, optionIdx) => (
-                            <div
-                              key={option.value}
-                              className="flex items-center"
-                            >
-                              <input
-                                id={`filter-${section.id}-${optionIdx}`}
-                                name={`${section.id}[]`}
-                                defaultValue={option.value}
-                                type="checkbox"
-                                defaultChecked={option.checked}
-                                className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label
-                                htmlFor={`filter-${section.id}-${optionIdx}`}
-                                className="ml-3 text-sm text-gray-600"
+                  {subCategories.map((category) => (
+                    <li key={category.name}>
+                      <a href={category.href}>{category.name}</a>
+                    </li>
+                  ))}
+                </ul>
+
+                {filters.map((section) => (
+                  <Disclosure
+                    as="div"
+                    key={section.id}
+                    className="border-b border-gray-200 py-6"
+                  >
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
+                            <span className="font-medium text-gray-900">
+                              {section.name}
+                            </span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusSmIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <PlusSmIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-6">
+                          <div className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div
+                                key={option.value}
+                                className="flex items-center"
                               >
-                                {option.label}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-              ))}
-            </form>
+                                <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  type="checkbox"
+                                  defaultChecked={option.checked}
+                                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 text-sm text-gray-600"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+              </form>
+            ) : (
+              <></>
+            )}
 
             {/* Product grid */}
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:col-span-3 lg:gap-x-8">
-              {products.map((product) => (
-                <a
-                  key={product._id}
-                  href={`/Product/${product._id}`}
-                  className="group text-sm"
-                >
-                  <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-gray-100 group-hover:opacity-75">
-                    <img
-                      src={product.image[0]}
-                      alt=""
-                      className="w-full h-full object-center object-cover"
-                    />
-                  </div>
-                  <h3 className="mt-4 font-medium text-gray-900">
-                    {product.title}
-                  </h3>
-                  <p className="text-gray-500 italic">
-                    {product.isActive ? "disponible" : "Non disponible"}
-                  </p>
-                  <p className="mt-2 font-medium text-gray-900">
-                    {product.price}
-                  </p>
-                </a>
-              ))}
-            </div>
+            {Mode === "List" ? (
+              <ListGallery products={products}></ListGallery>
+            ) : (
+              <MapGallery products={products}></MapGallery>
+            )}
           </div>
         </section>
       </main>

@@ -38,9 +38,22 @@ const routes = [
   },
   {
     name: "Profile",
+    path: "/Profile/:dash",
+    component: Views.Profile,
+    protectedRoute: true,
+  },
+  {
+    name: "Profile",
     path: "/Profile",
     component: Views.Profile,
     protectedRoute: true,
+  },
+  {
+    name: "Admin",
+    path: "/Admin",
+    component: Views.Admin,
+    protectedRoute: true,
+    Admin:true
   },
 ];
 

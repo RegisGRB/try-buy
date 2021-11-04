@@ -24,6 +24,7 @@
     ].join('')
    
   }
+
   export function normalizeValue (val, max, min){
     return (val - min) / (max - min);
   }

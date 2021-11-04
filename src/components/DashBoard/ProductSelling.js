@@ -75,6 +75,7 @@ const ProductSelling = ({ setForm, setBuffer }) => {
                     Show the Order
                   </button>
                 )}
+                    {product.isActive && (
                 <button
                   onClick={() => {
                     setBuffer(product._id);
@@ -85,6 +86,7 @@ const ProductSelling = ({ setForm, setBuffer }) => {
                 >
                   Edit Product
                 </button>
+                  )}
               </div>
             </div>
           ))}

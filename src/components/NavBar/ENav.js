@@ -30,15 +30,15 @@ const Enav = () => {
   const [OpenModale, setOpenModale] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [login, setlogin] = useState(Cookies.getAuth());
+  const [Admin, setAdmin] = useState(false);
   const [categories, setCategories] = React.useState([]);
 
   let history = useHistory();
 
   const Disconnect = async () => {
-        Cookies.Disconnect();
-        handleLogin(false);
-        history.push("/Gallery");
-
+    Cookies.Disconnect();
+    handleLogin(false);
+    history.push("/Gallery");
   };
   const handleOpen = (x) => {
     setOpenModale(x);
@@ -48,14 +48,23 @@ const Enav = () => {
   };
 
   const GetCateg = async () => {
-    let x = await API.GetAllCateg()
-    setCategories(x.category)
+    let x = await API.GetAllCateg();
+    setCategories(x.category);
   };
   React.useEffect(() => {
     GetCateg();
   }, []);
+  const [Interrest,setInterrest] = React.useState(0)
+  const handleInterrest = async () =>{
+    let x  = await API.GetInterrestProduct(Cookies.getAuth())
+    setInterrest(x.length)
+  }
+  const handleAdmin = async () => {
+    setAdmin(await API.isAdmin(Cookies.getAuth()));
+  };
   React.useEffect(() => {
-
+    handleAdmin();
+    handleInterrest();
   }, [login]);
 
   const GetCategJSX = () => {
@@ -439,7 +448,7 @@ const Enav = () => {
 
                 <div className="ml-auto flex items-center">
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    { !login && !Cookies.getAuth() && (
+                    {!login && !Cookies.getAuth() && (
                       <a
                         onClick={() => {
                           setOpenModale(true);
@@ -450,7 +459,17 @@ const Enav = () => {
                         Sign in
                       </a>
                     )}
-                    {  login && Cookies.getAuth() && (
+                    {login && Admin && (
+                      <>
+                        <a
+                          href="/Admin"
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Admin
+                        </a>
+                      </>
+                    )}
+                    {login && Cookies.getAuth() && (
                       <>
                         <a
                           href="/Profile"
@@ -508,13 +527,13 @@ const Enav = () => {
 
                   {/* Cart */}
                   <div className="ml-4 flow-root lg:ml-6">
-                    <a href="#" className="group -m-2 p-2 flex items-center">
+                    <a href="/Profile/Interrest" className="group -m-2 p-2 flex items-center">
                       <ShoppingBagIcon
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
                       <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                        0
+                       {Interrest}
                       </span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
@@ -597,7 +616,6 @@ const navigation = {
         },
       ],
     },
-  
   ],
   pages: [{ name: "Stores", href: "/Gallery" }],
 };
