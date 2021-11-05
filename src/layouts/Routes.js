@@ -55,6 +55,13 @@ const routes = [
     protectedRoute: true,
     Admin:true
   },
+  {
+    name: "Configurator",
+    path: "/Configurator",
+    component: Views.Configurator,
+    protectedRoute: true,
+    Admin:false
+  },
 ];
 
 function checkroutes(attribute){

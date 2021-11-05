@@ -30,12 +30,12 @@ import Buyers from "../components/DashBoard/Buyers";
 import Order from "../components/DashBoard/Order";
 import EditProduct from "../components/DashBoard/EditProduct";
 import Alert from "../components/Alert/Alert"
-import Buying from "../components/DashBoard/Buying"
+import EditUser from "../components/Admin/EditUser"
+import Users from "../components/Admin/Users";
+import Products from "../components/Admin/Products";
 const navigation = [
-  { name: "Account", icon: UserCircleIcon },
-  // { name: "Selling", icon: KeyIcon },
-  { name: "Selling", icon: CreditCardIcon },
-  { name: "Buying", icon: CreditCardIcon },
+  { name: "Products", icon: CreditCardIcon },
+  { name: "Users", icon: CreditCardIcon },
 ];
 
 function classNames(...classes) {
@@ -44,7 +44,7 @@ function classNames(...classes) {
 
 export default function Example() {
   let { dash } = useParams();
-  const [form, setform] = React.useState(dash ? dash : "Account");
+  const [form, setform] = React.useState(dash ? dash : "Products");
   const [buffer, setBuffer] = React.useState("");
   const [AlertopenStatus, setAlertopenStatus] = React.useState({
     success:true,
@@ -89,11 +89,10 @@ export default function Example() {
 
       <div className=" sm:px-6 lg:px-0 lg:col-span-9">
         <Alert openStatus={AlertopenStatus} setOpenStatus={handleAlert} ></Alert>
-        {form === "Selling" && <ProductSelling setForm={setform} setBuffer={setBuffer}></ProductSelling>}
-        {form === "Account" && (<EditProfile setForm={setform} handleAlert={handleAlert}></EditProfile>)}
         {form === "EditProduct" && (<EditProduct id={buffer} setForm={setform} handleAlert={handleAlert}></EditProduct>)}
-        {form === "Order" && (<Order id={buffer}></Order>)}
-        {form === "Buying" && (<Buying id={buffer} handleAlert={handleAlert}></Buying>)}
+        {form === "Users" && (<Users   setForm={setform} setBuffer={setBuffer}></Users>)}
+        {form === "EditUser" && (<EditUser id={buffer} setForm={setform} handleAlert={handleAlert}></EditUser>)}
+        {form === "Products" && (<Products id={buffer}  setForm={setform} setBuffer={setBuffer}></Products>)}
       </div>
     </div>
   );

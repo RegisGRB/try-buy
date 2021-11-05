@@ -36,6 +36,27 @@ html {
 //   left: 0;
 //   z-index: z("canvas");
 // }
+canvas{
+  position: absolute;
+  top: 0;
+  width: 100%!important;
+  height: 100vh!important;
+}
+.ConfigurationContainer{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+[data-canvasColorPicker]{
+  position: absolute;
+  opacity: 0;
+}
+
+.ConfiguratorCreator{
+
+  min-width: 400px;
+
+}
 // .wrapper {
 //   width: calc(100% - 16px);
 //   height: calc(100% - 64px);

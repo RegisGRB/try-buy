@@ -6,4 +6,5 @@ import Product from "./Product"
 import SignIn from "./SignIn"
 import Profile from "./Profile";
 import Admin from "./Admin";
-export { Home, Gallery, Test, Product, Order, SignIn, Profile,Admin };
+import Configurator from "./Configurator";
+export { Home, Gallery, Test, Product, Order, SignIn, Profile,Admin,Configurator };
