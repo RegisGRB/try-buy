@@ -47,29 +47,20 @@ const Sign = ({ openModale, setopenModale, success }) => {
   };
 
   return (
-    <div className="z-50">
+    <div className="z-40">
       {/* Sign */}
 
       {!IsRegister && openModale && (
         <div className="min-h-screen  flex flex-col justify-center py-12 sm:px-6 lg:px-8 top-0 left-0 fixed z-10 min-w-full">
           <div
-            className={
-              openModale ? "z-10 min-w-full min-h-full fixed top-0 left-0 " : ""
-            }
+            className={openModale ? "z-10 min-w-full min-h-full fixed top-0 left-0 " : ""}
             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             onClick={() => setopenModale(!openModale)}
           ></div>
-          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-20">
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-20 px-6">
             <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
               <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <img
-                  className="mx-auto h-12 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                  alt="Workflow"
-                />
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                  Sign in to your account
-                </h2>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                 {/* <p className="mt-2 text-center text-sm text-gray-600">
                   Or{" "}
                   <a
@@ -82,10 +73,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
               </div>
               <form className="space-y-6 " onSubmit={Login}>
                 <div className="pt-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-black">
                     Email address
                   </label>
                   <div className="mt-1">
@@ -102,10 +90,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="password" className="block text-sm font-medium text-black">
                     Password
                   </label>
                   <div className="mt-1">
@@ -120,8 +105,8 @@ const Sign = ({ openModale, setopenModale, success }) => {
                     />
                   </div>
                 </div>
-                <div >
-                <span className="text-red-400"> {ErrorMessage}</span>
+                <div>
+                  <span className="text-red-400"> {ErrorMessage}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
@@ -131,19 +116,13 @@ const Sign = ({ openModale, setopenModale, success }) => {
                       type="checkbox"
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                       Remember me
                     </label>
                   </div>
 
                   <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
+                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                       Forgot your password?
                     </a>
                   </div>
@@ -185,9 +164,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
       {IsRegister && openModale && (
         <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 top-0 left-0 fixed min-w-full z-10">
           <div
-            className={
-              openModale ? "z-10 min-w-full min-h-full fixed top-0 left-0 " : ""
-            }
+            className={openModale ? "z-10 min-w-full min-h-full fixed top-0 left-0 " : ""}
             style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             onClick={() => setopenModale(!openModale)}
           ></div>
@@ -199,9 +176,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                   alt="Workflow"
                 />
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                  Register to your account
-                </h2>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register to your account</h2>
                 {/* <p className="mt-2 text-center text-sm text-gray-600">
                   Or{" "}
                   <a
@@ -212,17 +187,10 @@ const Sign = ({ openModale, setopenModale, success }) => {
                   </a>
                 </p> */}
               </div>
-              <form
-                className="space-y-6 "
-                onSubmit={Register}
-
-              >
+              <form className="space-y-6 " onSubmit={Register}>
                 <div className="flex">
                   <div className="pr-2 pt-4">
-                    <label
-                      htmlFor="firstname"
-                      className="block text-sm font-medium text-black"
-                    >
+                    <label htmlFor="firstname" className="block text-sm font-medium text-black">
                       Firstname
                     </label>
                     <div className="mt-1">
@@ -236,10 +204,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                     </div>
                   </div>
                   <div className="pl-2 pt-4">
-                    <label
-                      htmlFor="lastname"
-                      className="block text-sm font-medium text-black"
-                    >
+                    <label htmlFor="lastname" className="block text-sm font-medium text-black">
                       Lastname
                     </label>
                     <div className="mt-1">
@@ -254,15 +219,11 @@ const Sign = ({ openModale, setopenModale, success }) => {
                   </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="address" className="block text-sm font-medium text-black">
                     Address
                   </label>
                   <div className="mt-1">
                     <input
-          
                       id="address"
                       name="address"
                       type="text"
@@ -272,10 +233,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                   </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="telephone"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="telephone" className="block text-sm font-medium text-black">
                     Telephone
                   </label>
                   <div className="mt-1">
@@ -290,10 +248,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-black">
                     Email address
                   </label>
                   <div className="mt-1">
@@ -309,10 +264,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-black"
-                  >
+                  <label htmlFor="password" className="block text-sm font-medium text-black">
                     Password
                   </label>
                   <div className="mt-1">
@@ -326,8 +278,8 @@ const Sign = ({ openModale, setopenModale, success }) => {
                     />
                   </div>
                 </div>
-                <div >
-                 <span className="text-red-400"> {ErrorMessage}</span>
+                <div>
+                  <span className="text-red-400"> {ErrorMessage}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
@@ -337,19 +289,13 @@ const Sign = ({ openModale, setopenModale, success }) => {
                       type="checkbox"
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-2 block text-sm text-gray-900"
-                    >
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                       Remember me
                     </label>
                   </div>
 
                   <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
+                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                       Forgot your password?
                     </a>
                   </div>

@@ -26,7 +26,7 @@ const EditUser = ({setForm,handleAlert,id}) => {
   const [values, setValues, getValue,setinitialvalues] = useForm({});
   const [profile, setprofile] = React.useState({});
   const GetMe = async () => {
-    alert(id)
+
     let x = await API.adminShowUser(Cookies.getAuth(),id);
 
     setprofile(x);

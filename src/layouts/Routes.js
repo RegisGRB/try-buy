@@ -50,17 +50,24 @@ const routes = [
   },
   {
     name: "Admin",
+    path: "/Admin/:dash",
+    component: Views.Admin,
+    protectedRoute: true,
+    Admin: true,
+  },
+  {
+    name: "Admin",
     path: "/Admin",
     component: Views.Admin,
     protectedRoute: true,
-    Admin:true
+    Admin: true,
   },
   {
     name: "Configurator",
     path: "/Configurator",
     component: Views.Configurator,
     protectedRoute: true,
-    Admin:false
+    Admin: false,
   },
 ];
 

@@ -67,19 +67,14 @@ export default function Example({ handleAlert }) {
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          Shopping Cart
-        </h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
         <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
             <h2 id="cart-heading" className="sr-only">
               Items in your shopping cart
             </h2>
 
-            <ul
-              role="list"
-              className="border-t border-b border-gray-200 divide-y divide-gray-200"
-            >
+            <ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
               {products.length <= 0 && (
                 <li>
                   <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -102,10 +97,7 @@ export default function Example({ handleAlert }) {
                       <div>
                         <div className="flex justify-between">
                           <h3 className="text-sm">
-                            <a
-                              href={order.product.href}
-                              className="font-medium text-gray-700 hover:text-gray-800"
-                            >
+                            <a href={order.product.href} className="font-medium text-gray-700 hover:text-gray-800">
                               {order.product.title}
                             </a>
                           </h3>
@@ -113,29 +105,25 @@ export default function Example({ handleAlert }) {
                         <div className="mt-1 flex text-sm">
                           <p className="text-gray-500">{order.product.color}</p>
                           {order.product.size ? (
-                            <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">
-                              {order.product.size}
-                            </p>
+                            <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{order.product.size}</p>
                           ) : null}
                         </div>
-                        <p className="mt-1 text-sm font-medium text-gray-900">
-                          {order.product.price}€
-                        </p>
+                        <p className="mt-1 text-sm font-medium text-gray-900">{order.product.price}€</p>
                       </div>
                     </div>
-                    <div className="mt-1  text-sm">
-                      <button
-                        type="submit"
-                        onClick={() => {
-                          setprice(order.product.price);
-                          setorder(order._id);
-                          setmodal(true);
-                        }}
-                        className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                      >
-                        Checkout
-                      </button>
-                    </div>
+                  </div>
+                  <div className="mt-1  text-sm">
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        setprice(order.product.price);
+                        setorder(order._id);
+                        setmodal(true);
+                      }}
+                      className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                    >
+                      Checkout
+                    </button>
                   </div>
                 </li>
               ))}
@@ -144,13 +132,7 @@ export default function Example({ handleAlert }) {
         </div>
       </div>
 
-      <StripeBuy
-        setOpen={handleModal}
-        open={modal}
-        price={price}
-        order={order}
-        handleAlert={handleAlert}
-      ></StripeBuy>
+      <StripeBuy setOpen={handleModal} open={modal} price={price} order={order} handleAlert={handleAlert}></StripeBuy>
     </div>
   );
 }

@@ -110,22 +110,21 @@ export default function Gallery() {
   return (
     <div className="bg-white">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-       
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-         { Mode === "List" ? "New Arrivals" : "Product in your Zone"}
+        <div className="relative  flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 z-0">
+            {Mode === "List" ? "New Arrivals" : "Product in your Zone"}
           </h1>
 
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                {/* <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                   Sort
                   <ChevronDownIcon
                     className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true"
                   />
-                </Menu.Button>
+                </Menu.Button> */}
               </div>
 
               <Transition
@@ -145,9 +144,7 @@ export default function Gallery() {
                           <a
                             href={option.href}
                             className={classNames(
-                              option.current
-                                ? "font-medium text-gray-900"
-                                : "text-gray-500",
+                              option.current ? "font-medium text-gray-900" : "text-gray-500",
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm"
                             )}
@@ -162,32 +159,13 @@ export default function Gallery() {
               </Transition>
             </Menu>
 
-            <button
-              type="button"
-              className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500"
-            >
+            <button type="button" className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500">
               <span className="sr-only">View grid</span>
               {Mode === "List" ? (
-                <MapIcon
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  onClick={() => setMode("Map")}
-                />
+                <MapIcon className="w-5 h-5" aria-hidden="true" onClick={() => setMode("Map")} />
               ) : (
-                <ViewGridIcon
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  onClick={() => setMode("List")}
-                />
+                <ViewGridIcon className="w-5 h-5" aria-hidden="true" onClick={() => setMode("List")} />
               )}
-            </button>
-            <button
-              type="button"
-              className="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden"
-              onClick={() => console.log("setMobileFiltersOpen")}
-            >
-              <span className="sr-only">Filters</span>
-              <FilterIcon className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -201,10 +179,7 @@ export default function Gallery() {
             {Mode === "List" ? (
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-                <ul
-                  role="list"
-                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
-                >
+                <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
@@ -213,29 +188,17 @@ export default function Gallery() {
                 </ul>
 
                 {filters.map((section) => (
-                  <Disclosure
-                    as="div"
-                    key={section.id}
-                    className="border-b border-gray-200 py-6"
-                  >
+                  <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
                           <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
-                              {section.name}
-                            </span>
+                            <span className="font-medium text-gray-900">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
-                                <MinusSmIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
                               ) : (
-                                <PlusSmIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
                               )}
                             </span>
                           </Disclosure.Button>
@@ -243,10 +206,7 @@ export default function Gallery() {
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
                             {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
+                              <div key={option.value} className="flex items-center">
                                 <input
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}

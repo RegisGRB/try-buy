@@ -56,7 +56,7 @@ const Products = ({ setForm, setBuffer }) => {
                 <button
                   onClick={() => {
                     setBuffer(product._id);
-                    setForm("EditProduct");
+                    setForm("Products");
                   }}
                   type="button"
                   className="w-full flex items-center justify-center bg-indigo-600 py-2 px-2.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-full sm:flex-grow-0"

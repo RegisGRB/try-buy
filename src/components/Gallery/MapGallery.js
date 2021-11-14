@@ -14,18 +14,6 @@ export default function MapGallery({ products = [] }) {
   const [modal, setModal] = React.useState(false);
   const [selectedProduct, setselectedProduct] = React.useState(products[0]);
 
-  // const GetUserGeo = async () => {
-  //   if (Cookies.getAuth()) {
-  //     let x = await API.getMe(Cookies.getAuth());
-  //     setmapControl({
-  //       center: {
-  //         lat: x.geocoding.latitude.$numberDecimal,
-  //         lng: x.geocoding.longitude.$numberDecimal,
-  //       },
-  //       zoom: 8,
-  //     });
-  //   }
-  // };
 
   const handleModal = (e) => {
     setModal(e);
@@ -42,9 +30,7 @@ export default function MapGallery({ products = [] }) {
   const coordinatesGeocoder = function (query) {
     // Match anything which looks like
     // decimal degrees coordinate pair.
-    const matches = query.match(
-      /^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i
-    );
+    const matches = query.match(/^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i);
     if (!matches) {
       return null;
     }
@@ -115,10 +101,7 @@ export default function MapGallery({ products = [] }) {
 
       if (marker.geocoding.latitude) {
         new mapboxgl.Marker(el)
-          .setLngLat([
-            marker.geocoding.longitude.$numberDecimal,
-            marker.geocoding.latitude.$numberDecimal,
-          ])
+          .setLngLat([marker.geocoding.longitude.$numberDecimal, marker.geocoding.latitude.$numberDecimal])
           .addTo(map.current);
       }
     }
@@ -149,12 +132,7 @@ export default function MapGallery({ products = [] }) {
   });
 
   function intersectRect(r1, r2) {
-    return !(
-      r2.left > r1.right ||
-      r2.right < r1.left ||
-      r2.top > r1.bottom ||
-      r2.bottom < r1.top
-    );
+    return !(r2.left > r1.right || r2.right < r1.left || r2.top > r1.bottom || r2.bottom < r1.top);
   }
 
   function getVisibleMarkers() {
@@ -184,13 +162,9 @@ export default function MapGallery({ products = [] }) {
   }, []);
   return (
     <>
-      <MapMarker
-        open={modal}
-        setOpen={handleModal}
-        selectedProduct={selectedProduct}
-      ></MapMarker>
-      <div className="flex flex-row w-full h-full">
-        <div className="mt-20 w-full">
+      <MapMarker open={modal} setOpen={handleModal} selectedProduct={selectedProduct}></MapMarker>
+      <div className="w-full h-full flex sm:flex-col md:flex-col lg:flex-row coldirection">
+        <div className="mt-20 w-full h-full">
           {productsViewport?.map((product, index) => (
             <div key={product._id} className="py-6 sm:flex" key={index}>
               <div className="flex space-x-4 sm:min-w-0 sm:flex-1 sm:space-x-6 lg:space-x-8 max-w-md">
@@ -210,9 +184,7 @@ export default function MapGallery({ products = [] }) {
                     </span>{" "}
                     <span>{product.size}</span>
                   </p>
-                  <p className="mt-1 font-medium text-gray-900">
-                    {product.price} €
-                  </p>
+                  <p className="mt-1 font-medium text-gray-900">{product.price} €</p>
                 </div>
               </div>
               <div className="mt-6 space-y-4 sm:mt-0 sm:ml-6 sm:flex-none sm:w-40"></div>

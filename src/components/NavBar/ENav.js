@@ -54,11 +54,11 @@ const Enav = () => {
   React.useEffect(() => {
     GetCateg();
   }, []);
-  const [Interrest,setInterrest] = React.useState(0)
-  const handleInterrest = async () =>{
-    let x  = await API.GetInterrestProduct(Cookies.getAuth())
-    setInterrest(x.length)
-  }
+  const [Interrest, setInterrest] = React.useState(0);
+  const handleInterrest = async () => {
+    let x = await API.GetInterrestProduct(Cookies.getAuth());
+    setInterrest(x.length);
+  };
   const handleAdmin = async () => {
     setAdmin(await API.isAdmin(Cookies.getAuth()));
   };
@@ -79,21 +79,11 @@ const Enav = () => {
         x = Math.floor(Math.random() * Math.floor(length));
         if (!index.includes(x)) {
           array.push(
-            <div
-              key={helpers.generateKey("categ")}
-              className="group relative text-base sm:text-sm"
-            >
+            <div key={helpers.generateKey("categ")} className="group relative text-base sm:text-sm">
               <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                <img
-                  src={categories[x].image}
-                  alt={categories[x].image}
-                  className="object-center object-cover"
-                />
+                <img src={categories[x].image} alt={categories[x].image} className="object-center object-cover" />
               </div>
-              <a
-                href={categories[x].name}
-                className="mt-6 block font-medium text-gray-900"
-              >
+              <a href={categories[x].name} className="mt-6 block font-medium text-gray-900">
                 <span className="absolute z-10 inset-0" aria-hidden="true" />
                 {categories[x].name}
               </a>
@@ -112,19 +102,11 @@ const Enav = () => {
   };
   return (
     <>
-      <Sign
-        openModale={OpenModale}
-        setopenModale={handleOpen}
-        success={handleLogin}
-      ></Sign>
+      <Sign openModale={OpenModale} setopenModale={handleOpen} success={handleLogin}></Sign>
       <div className="bg-white">
         {/* Mobile menu */}
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="fixed inset-0 flex z-40 lg:hidden"
-            onClose={setMobileMenuOpen}
-          >
+          <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setMobileMenuOpen}>
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -167,101 +149,16 @@ const Enav = () => {
                           key={category.name}
                           className={({ selected }) =>
                             classNames(
-                              selected
-                                ? "text-indigo-600 border-indigo-600"
-                                : "text-gray-900 border-transparent",
+                              selected ? "text-indigo-600 border-indigo-600" : "text-gray-900 border-transparent",
                               "flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
                             )
                           }
                         >
-                          {category.name}
+                          <span>{category.name}</span>
                         </Tab>
                       ))}
                     </Tab.List>
                   </div>
-                  <Tab.Panels as={Fragment}>
-                    {navigation.categories.map((category) => (
-                      <Tab.Panel
-                        key={category.name}
-                        className="pt-10 pb-8 px-4 space-y-10"
-                      >
-                        <div className="grid grid-cols-2 gap-x-4">
-                          {category.featured.map((item) => (
-                            <div
-                              key={item.name}
-                              className="group relative text-sm"
-                            >
-                              <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                <img
-                                  src={item.imageSrc}
-                                  alt={item.imageAlt}
-                                  className="object-center object-cover"
-                                />
-                              </div>
-                              <a
-                                href={item.href}
-                                className="mt-6 block font-medium text-gray-900"
-                              >
-                                <span
-                                  className="absolute z-10 inset-0"
-                                  aria-hidden="true"
-                                />
-                                {item.name}
-                              </a>
-                              <p aria-hidden="true" className="mt-1">
-                                Shop now
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                        {/* {category.sections.map((section) => (
-                          <div key={section.name}>
-                            <p
-                              id={`${category.id}-${section.id}-heading-mobile`}
-                              className="font-medium text-gray-900"
-                            >
-                              {section.name}
-                            </p>
-                            <ul
-                              role="list"
-                              aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                              className="mt-6 flex flex-col space-y-6"
-                            >
-                              {section.items.map((item) => (
-                                <li key={item.name} className="flow-root">
-                                  <a
-                                    href={item.href}
-                                    className="-m-2 p-2 block text-gray-500"
-                                  >
-                                    {item.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))} */}
-
-                        <div>
-                          <ul
-                            role="list"
-                            aria-labelledby={`heading-mobile`}
-                            className="mt-6 flex flex-col space-y-6"
-                          >
-                            {categories.map((item) => (
-                              <li key={item} className="flow-root">
-                                <a
-                                  href={item}
-                                  className="-m-2 p-2 block text-gray-500"
-                                >
-                                  {item}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </Tab.Panel>
-                    ))}
-                  </Tab.Panels>
                 </Tab.Group>
 
                 <div className="border-t border-gray-200 py-6 px-4 space-y-6">
@@ -270,6 +167,7 @@ const Enav = () => {
                       <a
                         href={page.href}
                         className="-m-2 p-2 block font-medium text-gray-900"
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {page.name}
                       </a>
@@ -279,24 +177,48 @@ const Enav = () => {
 
                 <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                   <div className="flow-root">
-                    <a
-                      onClick={() => {
-                        setOpenModale(true);
-                      }}
-                      href="#"
-                      className="-m-2 p-2 block font-medium text-gray-900"
-                    >
-                      Sign in
-                    </a>
+                    {!login && !Cookies.getAuth() && (
+                      <a
+                        onClick={() => {
+                          setOpenModale(true);
+                        }}
+                        href="#"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Sign in
+                      </a>
+                    )}
+                    <br></br>
+                    <br></br>
+                    {login && Admin && (
+                      <>
+                        <a href="/Admin" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                          Admin
+                        </a>
+                      </>
+                    )}
+                    <br></br>
+                    <br></br>
+                    {login && Cookies.getAuth() && (
+                      <>
+                        <a href="/Profile" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                          Account
+                        </a>
+                        <br></br>
+                        <br></br>
+                        <a
+                          onClick={() => {
+                            Disconnect();
+                          }}
+                          href="#"
+                          alt=""
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
+                          Disconnect
+                        </a>
+                      </>
+                    )}
                   </div>
-                  {/* <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 p-2 block font-medium text-gray-900"
-                    >
-                      Create account
-                    </a>
-                  </div> */}
                 </div>
 
                 <div className="border-t border-gray-200 py-6 px-4">
@@ -306,9 +228,7 @@ const Enav = () => {
                       alt=""
                       className="w-5 h-auto block flex-shrink-0"
                     />
-                    <span className="ml-3 block text-base font-medium text-gray-900">
-                      CAD
-                    </span>
+                    <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -322,10 +242,7 @@ const Enav = () => {
             Get free delivery on orders over $100
           </p>
 
-          <nav
-            aria-label="Top"
-            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          >
+          <nav aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="border-b border-gray-200">
               <div className="h-16 flex items-center">
                 <button
@@ -380,50 +297,12 @@ const Enav = () => {
                             >
                               <Popover.Panel className="absolute z-20 top-full inset-x-0 text-sm text-gray-500">
                                 {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                                <div
-                                  className="absolute inset-0 top-1/2 bg-white shadow"
-                                  aria-hidden="true"
-                                />
+                                <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
                                 <div className="relative bg-white">
                                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                     <div className="grid  gap-y-10  py-16">
-                                      <div className=" grid grid-cols-4 gap-x-8">
-                                        {GetCategJSX()}
-                                      </div>
-
-                                      {/* <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm"> */}
-                                      {/* {category.sections.map((section) => (
-                                          <div key={section.name}>
-                                            <p
-                                              id={`${section.name}-heading`}
-                                              className="font-medium text-gray-900"
-                                            >
-                                              {section.name}
-                                            </p>
-                                            <ul
-                                              role="list"
-                                              aria-labelledby={`${section.name}-heading`}
-                                              className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                            >
-                                              {section.items.map((item) => (
-                                                <li
-                                                  key={item.name}
-                                                  className="flex"
-                                                >
-                                                  <a
-                                                    href={item.href}
-                                                    className="hover:text-gray-800"
-                                                  >
-                                                    {item.name}
-                                                  </a>
-                                                </li>
-                                              ))}
-                                            </ul>
-                                          </div>
-                                        ))} */}
-
-                                      {/* </div> */}
+                                      <div className=" grid grid-cols-4 gap-x-8">{GetCategJSX()}</div>
                                     </div>
                                   </div>
                                 </div>
@@ -461,20 +340,14 @@ const Enav = () => {
                     )}
                     {login && Admin && (
                       <>
-                        <a
-                          href="/Admin"
-                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                        >
+                        <a href="/Admin" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                           Admin
                         </a>
                       </>
                     )}
                     {login && Cookies.getAuth() && (
                       <>
-                        <a
-                          href="/Profile"
-                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                        >
+                        <a href="/Profile" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                           Account
                         </a>
                         <a
@@ -482,6 +355,7 @@ const Enav = () => {
                             Disconnect();
                           }}
                           href="#"
+                          alt=""
                           className="text-sm font-medium text-gray-700 hover:text-gray-800"
                         >
                           Disconnect
@@ -498,28 +372,20 @@ const Enav = () => {
                   </div>
 
                   <div className="hidden lg:ml-8 lg:flex">
-                    <a
-                      href="#"
-                      className="text-gray-700 hover:text-gray-800 flex items-center"
-                    >
+                    <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
                       <img
                         src="https://tailwindui.com/img/flags/flag-canada.svg"
                         alt=""
                         className="w-5 h-auto block flex-shrink-0"
                       />
-                      <span className="ml-3 block text-sm font-medium">
-                        CAD
-                      </span>
+                      <span className="ml-3 block text-sm font-medium">CAD</span>
                       <span className="sr-only">, change currency</span>
                     </a>
                   </div>
 
                   {/* Search */}
                   <div className="flex lg:ml-6">
-                    <a
-                      href="#"
-                      className="p-2 text-gray-400 hover:text-gray-500"
-                    >
+                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                       <span className="sr-only">Search</span>
                       <SearchIcon className="w-6 h-6" aria-hidden="true" />
                     </a>
@@ -533,7 +399,7 @@ const Enav = () => {
                         aria-hidden="true"
                       />
                       <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                       {Interrest}
+                        {Interrest}
                       </span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
@@ -555,64 +421,12 @@ function classNames(...classes) {
 const navigation = {
   categories: [
     {
-      id: "Categories",
-      name: "Categories",
+      id: "Try & buy",
+      name: "Try & buy",
       featured: [
         {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt:
-            "Models sitting back to back, wearing Basic Tee in black and bone.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt:
-            "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Significant Other", href: "#" },
-          ],
+          name: "Stores",
+          href: "/Gallery",
         },
       ],
     },
