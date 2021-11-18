@@ -13,14 +13,14 @@ const PwaInstall = ({ className }) => {
   },[]);
   const onClick = async (evt) => {
     evt.preventDefault();
-    console.log(supportsPWA)
-    // if (supportsPWA !== null) {
-    //   supportsPWA.prompt();
-    //   const { outcome } = await supportsPWA.userChoice;
-    //   if (outcome === "accepted") {
-    //     supportsPWA = null;
-    //   }
-    // }
+
+    if (supportsPWA !== null) {
+      supportsPWA.prompt();
+      const { outcome } = await supportsPWA.userChoice;
+      if (outcome === "accepted") {
+        supportsPWA = null;
+      }
+    }
   };
 
   return (
