@@ -263,12 +263,50 @@ export const adminShowOrders = (token) => {
   }).then((res) => res.json());
 };
 
-export const ShowProducts = (token) => {
+export const ShowProducts = () => {
   return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/products/`, {}).then((res) =>
     res.json()
   );
 };
+export const ShowProductsByCateg = (categ) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/products/category/${categ}`, {}).then((res) =>
+    res.json()
+  );
+};
+export const GetCategbyId = (categ) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/category/${categ}`, {}).then((res) =>
+    res.json()
+  );
+};
+export const EditCategbyId = (token,id,body) => {
 
+   return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/category/${id}`, {
+    method: "PATCH",
+    headers: {
+      "x-access-token": token,
+      "Content-Type": "Application/json"
+    },
+    body: JSON.stringify(body)
+  }).then((res) => res.json());
+};
+export const DeleteCategById = (token,id) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/category/${id}`, {
+    method: "DELETE",
+    headers: {
+      "x-access-token": token,
+    },
+  }).then((res) => res.json());
+};
+export const CreateCateg = (token,body) => {
+  return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/category/`, {
+    method: "POST",
+    headers: {
+      "x-access-token": token,
+      "Content-Type": "Application/json",
+    },
+    body: JSON.stringify(body),
+  }).then((res) => res.json());
+};
 export const adminShowUsers = (token) => {
   return fetch(`https://ynov-fullstack.herokuapp.com/api/v1/users/`, {
     headers: {

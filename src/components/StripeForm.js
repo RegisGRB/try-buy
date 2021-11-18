@@ -100,7 +100,7 @@ function CheckoutForm() {
     const x = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/Profile?dash=buying",
+        return_url: `${window.location.origin}/Profile?dash=buying`,
       },
     });
  

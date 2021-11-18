@@ -1,28 +1,12 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-import { useParams,useHistory } from "react-router-dom";
+
+import { useParams } from "react-router-dom";
 import CreateProduct from "../components/DashBoard/CreateProduct";
 import EditProfile from "../components/DashBoard/EditProfile";
 import {
   CreditCardIcon,
-  KeyIcon,
+
   UserCircleIcon,
-  UserGroupIcon,
-  ViewGridAddIcon,
+
 } from "@heroicons/react/outline";
 import * as React from "react";
 import ProductSelling from "../components/DashBoard/ProductSelling";
@@ -48,7 +32,7 @@ function classNames(...classes) {
 
 export default function Example() {
   let { dash } = useParams();
-  console.log(dash)
+
   const [form, setform] = React.useState(dash ? dash : "Account");
   const [buffer, setBuffer] = React.useState("");
   const [AlertopenStatus, setAlertopenStatus] = React.useState({
@@ -56,6 +40,7 @@ export default function Example() {
     open:false,
     message:""
   });
+
   const handleAlert = (e) =>{
     setAlertopenStatus(e)
   }
@@ -66,6 +51,7 @@ export default function Example() {
           {navigation.map((item) => (
             <span
               onClick={() => {
+
                 setform(item.name);
               }}
               key={item.name}

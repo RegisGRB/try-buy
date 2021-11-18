@@ -78,7 +78,7 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
       success: x.success,
       message: x.message,
     });
-    setForm("Selling");
+    setForm("Products");
   };
   return (
     <>
@@ -87,7 +87,8 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
           <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
             <div>
               <h3 className="text-lg leading-6 font-medium text-gray-900">Edit product</h3>
-           
+   
+      
             </div>
 
             <div className="grid grid-cols-6 gap-6">

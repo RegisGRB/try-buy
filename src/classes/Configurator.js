@@ -7,6 +7,7 @@ export default class Configurator {
     this.scene = scene;
     this.sizes = sizes;
     this.group = obj.children[2];
+
     this.camera = camera;
     this.raycaster = new THREE.Raycaster();
     this.views = views;
@@ -18,13 +19,43 @@ export default class Configurator {
     };
     this.selectedItem = null;
     this.colorPicker = {
-      element: document.querySelector("[data-canvasColorPicker]"),
+      element: document.querySelector("[data-canvascolorpicker]"),
       picking: false,
       value: "",
     };
     this.down = false;
     this.addEventListener();
-    this.title = document.querySelector("[data-canvasTitle]");
+  }
+
+  replaceText(el) {
+    switch (el) {
+      case "shoe":
+        return "Cover";
+        break;
+      case "shoe_1":
+        return "Sole";
+        break;
+      case "shoe_2":
+        return "Band";
+        break;
+      case "shoe_3":
+        return "Band Tongue";
+        break;
+      case "shoe_4":
+        return "Lace Hole";
+        break;
+      case "shoe_5":
+        return "Back Cover";
+        break;
+      case "shoe_6":
+        return "Inner";
+        break;
+      case "shoe_7":
+        return "Lace";
+        break;
+      default:
+        break;
+    }
   }
   create() {
     // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -32,13 +63,35 @@ export default class Configurator {
     // const mesh = new THREE.Mesh( geometry, material );
     // this.group.add(mesh)
     // this.group.add(this.obj)
-    this.scene.add(this.group);
-    console.log(this.group);
-  }
+    this.title = document.querySelector("[data-canvastitle]");
+    this.colorPanel = document.querySelector(".ChooseColor");
+    this.group.children.forEach((element) => {
+      this.colorPanel.innerHTML += ` <div class="Materialobject" style="width: 80%;
+      display: flex;
+     position:relative;
+     height:20px;
+      align-items: center;">
+      <span class="Materialtext ${
+        element.name
+      }" style="color:black;position:absolute;left:0;">${this.replaceText(
+        element.name
+      )}</span>
+      <div class="Materialcolor ${element.name}" style="
+      position:absolute;right:0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: transparent;
+      border:1px solid grey;"></div>
+    </div>`;
+    });
 
+    this.scene.add(this.group);
+  }
   destroy() {
     this.scene.remove(this.group);
   }
+
   /*---------------------------------------------
 |           Object
 -----------------------------------------------*/
@@ -54,7 +107,10 @@ export default class Configurator {
   onTouchDown(event) {
     if (this.Obj) {
       this.selectedItem = this.Obj;
-      this.title.innerHTML = this.selectedItem.name;
+      this.title.innerHTML = this.replaceText(this.selectedItem.name);
+      this.controlcolor = document.querySelector(
+        `.Materialcolor.${this.selectedItem.name}`
+      );
       this.outline.selectedObjects = [this.Obj];
       const evx = event.touches ? event.touches[0].clientX : event.clientX;
       const evy = event.touches ? event.touches[0].clientY : event.clientY;
@@ -128,6 +184,8 @@ export default class Configurator {
 
   UpdateObj() {
     let w = this.hexToRgb(this.colorPicker.value);
+
+    this.controlcolor.style.backgroundColor = `rgb(${w.r}, ${w.g}, ${w.b})`;
     let x = new THREE.Color(`rgb(${w.r}, ${w.g}, ${w.b})`);
     this.selectedItem.material.color = x;
   }
@@ -135,7 +193,7 @@ export default class Configurator {
   addEventListener() {
     this.colorPicker.element.addEventListener("input", () => {
       this.colorPicker.value = this.colorPicker.element.value;
-      console.log(this.selectedItem.material);
+
       this.UpdateObj();
     });
   }

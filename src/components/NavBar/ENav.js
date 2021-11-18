@@ -1,8 +1,6 @@
 import React, { Fragment, useState } from "react";
 import {
   Dialog,
-  Disclosure,
-  Menu,
   Popover,
   Tab,
   Transition,
@@ -13,13 +11,7 @@ import {
   ShoppingBagIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import {
-  ChevronDownIcon,
-  FilterIcon,
-  MinusSmIcon,
-  PlusSmIcon,
-  ViewGridIcon,
-} from "@heroicons/react/solid";
+
 import Sign from "../Sign/Sign";
 import * as Cookies from "../../api/cookies";
 import { useHistory } from "react-router-dom";
@@ -49,6 +41,7 @@ const Enav = () => {
 
   const GetCateg = async () => {
     let x = await API.GetAllCateg();
+    console.log(x)
     setCategories(x.category);
   };
   React.useEffect(() => {
@@ -74,8 +67,9 @@ const Enav = () => {
     let array = [];
     let x = 0;
 
-    if (length > 0) {
-      while (i < 4) {
+    if (length > 0 ) {
+      let j = length < 4 ? length : 4;
+      while (i < j ) {
         x = Math.floor(Math.random() * Math.floor(length));
         if (!index.includes(x)) {
           array.push(
@@ -363,12 +357,6 @@ const Enav = () => {
                       </>
                     )}
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    {/* <a
-                      href="#"
-                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      Create account
-                    </a> */}
                   </div>
 
                   <div className="hidden lg:ml-8 lg:flex">

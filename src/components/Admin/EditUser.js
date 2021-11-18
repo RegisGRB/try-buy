@@ -57,7 +57,7 @@ const EditUser = ({setForm,handleAlert,id}) => {
       success:x.success,
       message:x.message
     })
-    setForm("Account");
+    setForm("Users");
   };
   return (
     <>

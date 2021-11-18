@@ -15,27 +15,24 @@
   ```
 */
 import { useParams,useHistory } from "react-router-dom";
-import CreateProduct from "../components/DashBoard/CreateProduct";
-import EditProfile from "../components/DashBoard/EditProfile";
+
 import {
   CreditCardIcon,
-  KeyIcon,
-  UserCircleIcon,
-  UserGroupIcon,
-  ViewGridAddIcon,
+
 } from "@heroicons/react/outline";
 import * as React from "react";
-import ProductSelling from "../components/DashBoard/ProductSelling";
-import Buyers from "../components/DashBoard/Buyers";
-import Order from "../components/DashBoard/Order";
-import EditProduct from "../components/DashBoard/EditProduct";
+
+import EditProduct from "../components/Admin/EditProduct";
 import Alert from "../components/Alert/Alert"
 import EditUser from "../components/Admin/EditUser"
 import Users from "../components/Admin/Users";
 import Products from "../components/Admin/Products";
+import Categories from "../components/Admin/Categories";
+import EditCateg from "../components/Admin/EditCateg";
 const navigation = [
   { name: "Products", icon: CreditCardIcon },
   { name: "Users", icon: CreditCardIcon },
+  { name: "Categories", icon: CreditCardIcon },
 ];
 
 function classNames(...classes) {
@@ -51,6 +48,7 @@ export default function Example() {
     open:false,
     message:""
   });
+
   const handleAlert = (e) =>{
     setAlertopenStatus(e)
   }
@@ -93,6 +91,8 @@ export default function Example() {
         {form === "Users" && (<Users   setForm={setform} setBuffer={setBuffer}></Users>)}
         {form === "EditUser" && (<EditUser id={buffer} setForm={setform} handleAlert={handleAlert}></EditUser>)}
         {form === "Products" && (<Products id={buffer}  setForm={setform} setBuffer={setBuffer}></Products>)}
+        {form === "Categories" && (<Categories id={buffer} setForm={setform} setBuffer={setBuffer}></Categories>)}
+        {form === "EditCateg" && (<EditCateg id={buffer}  setForm={setform} setBuffer={setBuffer} handleAlert={handleAlert}></EditCateg>)}
       </div>
     </div>
   );

@@ -67,6 +67,45 @@ canvas{
   min-width: 400px;
 
 }
+.map-container {
+  height: 600px;
+  }
+   
+  .sidebar {
+  background-color: rgba(35, 55, 75, 0.9);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: monospace;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  border-radius: 4px;
+  }
+  header{
+      z-index: 999;
+  }
+
+  .Materialobject{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+  .Materialcolor{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: red;
+      border:1px solid grey;
+  }
+  .Materialtext{
+      color: black;
+  }
+  }
+  .alert{
+      z-index: 99999;
+  }
 // .wrapper {
 //   width: calc(100% - 16px);
 //   height: calc(100% - 64px);

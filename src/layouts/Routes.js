@@ -13,27 +13,9 @@ const routes = [
     protectedRoute: false,
   },
   {
-    name: "Order",
-    path: "/Order",
-    component: Views.Order,
-    protectedRoute: false,
-  },
-  {
-    name: "Test",
-    path: "/Test",
-    component: Views.Test,
-    protectedRoute: false,
-  },
-  {
     name: "Product",
     path: "/Product/:id",
     component: Views.Product,
-    protectedRoute: false,
-  },
-  {
-    name: "SignIn",
-    path: "/SignIn",
-    component: Views.SignIn,
     protectedRoute: false,
   },
   {

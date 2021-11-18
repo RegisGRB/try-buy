@@ -101,6 +101,14 @@ export default function Example() {
       <div className="bg-white ConfigurationContainer">
         <main className="pt-20 max-w-2xl mx-auto pb-16 px-4 sm:pb-24 sm:px-6 lg:max-w-7xl lg:px-8 absolute z-10">
                
+            <h1
+              className=" font-medium text-gray-900"
+              style={{fontSize:"2rem",margin:"30px"}}
+
+              data-canvastitle={true}
+            >
+              Create Your Choose
+            </h1>
                
                
                  {/* Order summary */}
@@ -116,45 +124,16 @@ export default function Example() {
             </h2>
 
             <dl className="mt-6 space-y-4">
-              <div className="flex items-center justify-between">
-                <dt className="text-sm text-gray-600">Subtotal</dt>
-                <dd className="text-sm font-medium text-gray-900">$99.00</dd>
-              </div>
-              <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                <dt className="flex items-center text-sm text-gray-600">
-                  <span>Shipping estimate</span>
-                  <a
-                    href="#"
-                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500"
-                  >
-                    <span className="sr-only">
-                      Learn more about how shipping is calculated
-                    </span>
-               
-                  </a>
-                </dt>
-                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
-              </div>
-              <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
-                <dt className="flex text-sm text-gray-600">
-                  <span>Tax estimate</span>
-                  <a
-                    href="#"
-                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500"
-                  >
-                    <span className="sr-only">
-                      Learn more about how tax is calculated
-                    </span>
-            
-                  </a>
-                </dt>
-                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
-              </div>
+           <div className="ChooseColor">
+  
+           </div>
+
+
               <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
                 <dt className="text-base font-medium text-gray-900">
                   Order total
                 </dt>
-                <dd className="text-base font-medium text-gray-900">$112.32</dd>
+                <dd className="text-base font-medium text-gray-900">250 €</dd>
               </div>
             </dl>
 
@@ -169,13 +148,7 @@ export default function Example() {
           </section>
        
 
-            <h1
-              className="text-xl font-medium text-gray-900"
-              data-canvasTitle="true"
-            >
-              Create Your Choose
-            </h1>
-            <input type="color" data-canvasColorPicker="true"></input>
+            <input type="color" data-canvascolorpicker={true}></input>
      
           <Alert
             openStatus={AlertopenStatus}
