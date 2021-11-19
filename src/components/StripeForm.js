@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
+import * as Cookies from "../api/cookies";
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.sk_test_51IfVWALdGWHrOhEHXrTCgC4C03N6BK4yIiekC1kFY8V2shVl6HZ6FaM6Ir0VDsvNNkNzRr90sUApcWhX2WUTgLCE00Nq2TcDqv
 // loadStripe is initialized with a fake API key.
@@ -14,16 +14,22 @@ const stripePromise = loadStripe(
   "pk_test_51IfVWALdGWHrOhEHdLB6Vb1WiR4LSk4gTSvkxIQTxChXBET8jKFA4J8AUgIwBMS0hFSPpBPAkvHXspNx8CTwdXIv00rWofjCxQ"
 );
 
-export default function StripeForm({ price,order,handleAlert }) {
+export default function StripeForm({ price, order, handleAlert }) {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://ynov-fullstack.herokuapp.com/api/v1/stripe/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: price,order:order }),
-    })
+    fetch(
+      "https://ynov-fullstack.herokuapp.com/api/v1/stripe/create-payment-intent",
+      {
+        method: "POST",
+        headers: {
+          "x-access-token": Cookies.getAuth(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ price: price, order: order }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, []);
@@ -103,7 +109,7 @@ function CheckoutForm() {
         return_url: `${window.location.origin}/Profile?dash=buying`,
       },
     });
- 
+
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -121,7 +127,11 @@ function CheckoutForm() {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button className="mt-3 border-2 border-black p-2 bg-black rounded-lg" disabled={isLoading || !stripe || !elements} id="submit">
+      <button
+        className="mt-3 border-2 border-black p-2 bg-black rounded-lg"
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+      >
         <span id="button-text " className="text-white ">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
