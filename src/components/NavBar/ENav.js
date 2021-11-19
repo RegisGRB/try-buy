@@ -41,7 +41,6 @@ const Enav = () => {
 
   const GetCateg = async () => {
     let x = await API.GetAllCateg();
-    console.log(x)
     setCategories(x.category);
   };
   React.useEffect(() => {

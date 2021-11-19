@@ -29,6 +29,8 @@ import Users from "../components/Admin/Users";
 import Products from "../components/Admin/Products";
 import Categories from "../components/Admin/Categories";
 import EditCateg from "../components/Admin/EditCateg";
+import * as Cookies from "../api/cookies";
+import * as API from "../api/api";
 const navigation = [
   { name: "Products", icon: CreditCardIcon },
   { name: "Users", icon: CreditCardIcon },
@@ -41,6 +43,7 @@ function classNames(...classes) {
 
 export default function Example() {
   let { dash } = useParams();
+  let history = useHistory();
   const [form, setform] = React.useState(dash ? dash : "Products");
   const [buffer, setBuffer] = React.useState("");
   const [AlertopenStatus, setAlertopenStatus] = React.useState({
@@ -52,6 +55,16 @@ export default function Example() {
   const handleAlert = (e) =>{
     setAlertopenStatus(e)
   }
+
+  const handleAdmin = async () => {
+    let x = await API.isAdmin(Cookies.getAuth());
+    if(!x){
+      history.push("/Gallery")
+    }
+  };
+  React.useEffect(() => {
+    handleAdmin();
+  }, []);
   return (
     <div className="lg:grid lg:grid-cols-12 text-black">
       <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3 bg-white">

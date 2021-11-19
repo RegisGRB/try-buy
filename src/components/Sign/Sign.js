@@ -41,6 +41,7 @@ const Sign = ({ openModale, setopenModale, success }) => {
       setopenModale(false);
       success(true);
       setErrorMessage("")
+      history.push("/Gallery");
     }else{
       setErrorMessage(x.message)
     }
