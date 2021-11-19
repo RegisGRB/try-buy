@@ -53,7 +53,8 @@ const Enav = () => {
     setInterrest(x.length);
   };
   const handleAdmin = async () => {
-    setAdmin(await API.isAdmin(Cookies.getAuth()));
+    let x = await API.isAdmin(Cookies.getAuth());
+    setAdmin(x)
   };
   React.useEffect(() => {
     handleAdmin();
@@ -77,7 +78,7 @@ const Enav = () => {
               <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                 <img src={categories[x].image} alt={categories[x].image} className="object-center object-cover" />
               </div>
-              <a href={categories[x].name} className="mt-6 block font-medium text-gray-900">
+              <a href={"/Gallery/"+categories[x]._id} className="mt-6 block font-medium text-gray-900">
                 <span className="absolute z-10 inset-0" aria-hidden="true" />
                 {categories[x].name}
               </a>
@@ -280,7 +281,7 @@ const Enav = () => {
                               </Popover.Button>
                             </div>
 
-                            <Transition
+                            {/* <Transition
                               as={Fragment}
                               enter="transition ease-out duration-200"
                               enterFrom="opacity-0"
@@ -290,7 +291,7 @@ const Enav = () => {
                               leaveTo="opacity-0"
                             >
                               <Popover.Panel className="absolute z-20 top-full inset-x-0 text-sm text-gray-500">
-                                {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                              
                                 <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
                                 <div className="relative bg-white">
@@ -301,7 +302,7 @@ const Enav = () => {
                                   </div>
                                 </div>
                               </Popover.Panel>
-                            </Transition>
+                            </Transition> */}
                           </>
                         )}
                       </Popover>
@@ -409,8 +410,8 @@ function classNames(...classes) {
 const navigation = {
   categories: [
     {
-      id: "Try & buy",
-      name: "Try & buy",
+      // id: "Try & buy",
+      // name: "Try & buy",
       featured: [
         {
           name: "Stores",

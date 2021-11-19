@@ -21,7 +21,8 @@ export const getAdmin = () => {
 
 export const Disconnect = () => {
   const cookies = new Cookies();
-  return cookies.remove("token");
+       cookies.remove("admin");
+       cookies.remove("token");
 };
 export const AddCart = (product) => {
   // -------------------------- ADD CART

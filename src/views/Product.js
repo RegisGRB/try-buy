@@ -96,7 +96,7 @@ export default function Example() {
        {
          success:x.success,
          open:true,
-         message:"En attente de la réponse de l'annonceur"
+         message:x.message
        }
      )
    };

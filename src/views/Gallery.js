@@ -18,24 +18,14 @@
 import React from "react";
 import * as Api from "../api/api";
 import { Fragment } from "react";
-import {
-
-  Menu,
-
-  Transition,
-} from "@headlessui/react";
-import {
-
-} from "@heroicons/react/outline";
-import {
-
-  ViewGridIcon,
-  MapIcon,
-} from "@heroicons/react/solid";
+import { Menu, Transition } from "@headlessui/react";
+import {} from "@heroicons/react/outline";
+import { ViewGridIcon, MapIcon } from "@heroicons/react/solid";
 import * as API from "../api/api";
 import ListGallery from "../components/Gallery/ListGallery";
 import MapGallery from "../components/Gallery/MapGallery";
 
+import { useParams, useHistory } from "react-router-dom";
 const subCategories = [
   { name: "Totes", href: "#" },
   { name: "Backpacks", href: "#" },
@@ -44,55 +34,57 @@ const subCategories = [
   { name: "Laptop Sleeves", href: "#" },
 ];
 
-
-
-
 export default function Gallery() {
+  let { id } = useParams();
   const [products, setproducts] = React.useState([]);
   const [Mode, setMode] = React.useState("List");
   const [category, setcategory] = React.useState([]);
   const [categorySelect, setcategorySelect] = React.useState({
-    _id:"",
-    name:""
+    _id: "",
+    name: "",
   });
- 
+
   React.useEffect(async () => {
-    Init()
+    Init();
   }, []);
 
-
-  const Init = async ()=>{
+  const Init = async () => {
     let w = await API.GetAllCateg();
     setcategory(w.category);
- 
-  }
- const RefreshAll= async ()=>{
-   if(categorySelect.name !=""){
-  let x = await Api.ShowProductsByCateg(categorySelect._id);
+  };
+  const RefreshAll = async () => {
+    if (categorySelect.name != "") {
+      let x = await Api.ShowProductsByCateg(categorySelect._id);
 
-  setproducts(x.product ? x.product: x);
-   }else{
-    let x = await Api.ShowProducts("");
-    setproducts(x.product);
-   }
-   
-  }
-  React.useEffect( ()=>{
+      setproducts(x.product ? x.product : x);
+    } else {
+      if (id) {
+        let x = await Api.ShowProductsByCateg(id);
+  
+      } else {
+        let x = await Api.ShowProducts("");
+        setproducts(x.product);
+      }
+    }
+  };
+  React.useEffect(() => {
     RefreshAll();
-  },[categorySelect])
+  }, [categorySelect]);
   return (
     <div className="bg-white">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative  flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 z-0">
-            {Mode === "List" ? categorySelect && categorySelect.name != "" ? categorySelect.name: "New Arrivals"  : "Product in your Zone"}
+            {Mode === "List"
+              ? categorySelect && categorySelect.name != ""
+                ? categorySelect.name
+                : "New Arrivals"
+              : "Product in your Zone"}
           </h1>
 
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
-              <div>
-
-              </div>
+              <div></div>
 
               <Transition
                 as={Fragment}
@@ -102,17 +94,26 @@ export default function Gallery() {
                 leave="transition ease-in duration-75"
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
-              >
-
-              </Transition>
+              ></Transition>
             </Menu>
 
-            <button type="button" className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500">
+            <button
+              type="button"
+              className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500"
+            >
               <span className="sr-only">View grid</span>
               {Mode === "List" ? (
-                <MapIcon className="w-5 h-5" aria-hidden="true" onClick={() => setMode("Map")} />
+                <MapIcon
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  onClick={() => setMode("Map")}
+                />
               ) : (
-                <ViewGridIcon className="w-5 h-5" aria-hidden="true" onClick={() => setMode("List")} />
+                <ViewGridIcon
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  onClick={() => setMode("List")}
+                />
               )}
             </button>
           </div>
@@ -123,22 +124,42 @@ export default function Gallery() {
             Products
           </h2>
 
-          <div className={`grid grid-cols-1 ${Mode === "List" ? "lg:grid-cols-4" : ""}  gap-x-8 gap-y-10`}>
+          <div
+            className={`grid grid-cols-1 ${
+              Mode === "List" ? "lg:grid-cols-4" : ""
+            }  gap-x-8 gap-y-10`}
+          >
             {Mode === "List" ? (
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
-            
-                    <li >
-                      <a href="#" onClick={()=>{setcategorySelect({
-                        _id:"",
-                        name:""
-                      })}}>All</a>
-                    </li>
-            
+                <ul
+                  role="list"
+                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
+                >
+                  <li>
+                    <a
+                      href="#"
+                      onClick={() => {
+                        setcategorySelect({
+                          _id: "",
+                          name: "",
+                        });
+                      }}
+                    >
+                      All
+                    </a>
+                  </li>
+
                   {category.map((category) => (
                     <li key={category.name}>
-                      <a href="#" onClick={()=>{setcategorySelect(category)}}>{category.name}</a>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          setcategorySelect(category);
+                        }}
+                      >
+                        {category.name}
+                      </a>
                     </li>
                   ))}
                 </ul>

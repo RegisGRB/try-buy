@@ -13,6 +13,12 @@ const routes = [
     protectedRoute: false,
   },
   {
+    name: "Gallery",
+    path: "/Gallery/:id",
+    component: Views.Gallery,
+    protectedRoute: false,
+  },
+  {
     name: "Product",
     path: "/Product/:id",
     component: Views.Product,

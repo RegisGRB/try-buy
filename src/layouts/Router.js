@@ -19,7 +19,7 @@ const Router = ({ children }) => {
               path={element.path}
               key={key}
               protectedRoute={element.protectedRoute}
-              condition={element.Admin}
+              admin={element.Admin}
               component={element.component}
             />
           );

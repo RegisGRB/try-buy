@@ -83,7 +83,7 @@ export default function Example({ handleAlert }) {
                 </li>
               )}
               {products?.map((order) => (
-                <li key={order.product} className="flex py-6 sm:py-10">
+                <li key={order.product._id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img
                       src={order.product.image[0]}

@@ -18,7 +18,8 @@ const Products = ({ setForm, setBuffer }) => {
         <div className=" space-y-4 sm:mt-0   sm:flex-none sm:w-40 absolute  ">
           <button
             onClick={() => {
-              setForm("CreateSelling");
+              setBuffer("");
+              setForm("EditProduct");
             }}
             type="button"
             className=" w-full flex items-center justify-center bg-indigo-600 py-2 px-2.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-full sm:flex-grow-0"

@@ -32,30 +32,32 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
 
   const [product, setproduct] = React.useState({});
   const GetProduct = async () => {
-    let x = await API.ShowProductById(id);
-    setproduct(x.product);
+    if (id) {
+      let x = await API.ShowProductById(id);
+      setproduct(x.product);
 
-    setinitialvalues({
-      title: x.product.title,
-      description: x.product.description,
-      price: x.product.price,
-      color: x.product.color,
-      size: x.product.size,
-      categories: x.product.category,
-      image1: x.product.image[0] ? x.product.image[0] : "",
-      image2: x.product.image[1] ? x.product.image[1] : "",
-      image3: x.product.image[2] ? x.product.image[2] : "",
-    });
+      setinitialvalues({
+        title: x.product.title,
+        description: x.product.description,
+        price: x.product.price,
+        color: x.product.color,
+        size: x.product.size,
+        categories: x.product.category,
+        image1: x.product.image[0] ? x.product.image[0] : "",
+        image2: x.product.image[1] ? x.product.image[1] : "",
+        image3: x.product.image[2] ? x.product.image[2] : "",
+      });
+    }
   };
 
   const DeleteProduct = async (id) => {
-    let x = await API.deleteProduct(id);
+    let x = await API.deleteProduct(id, Cookies.getAuth());
     handleAlert({
       open: true,
       success: x.success,
       message: x.message,
     });
-    setForm("Selling");
+    setForm("Products");
   };
 
   React.useEffect(() => {
@@ -64,15 +66,39 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
   }, [id]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let x = await API.editProduct(id, Cookies.getAuth(), {
-      title: e.target.elements.title.value,
-      description: e.target.elements.description.value,
-      color: e.target.elements.color.value,
-      size: e.target.elements.size.value,
-      price: e.target.elements.price.value,
-      category: e.target.elements.categories.value,
-      image: [e.target.elements.image1.value, e.target.elements.image2.value, e.target.elements.image3.value],
-    });
+    let x;
+    if (id) {
+      x = await API.editProduct(id, Cookies.getAuth(), {
+        title: e.target.elements.title.value,
+        description: e.target.elements.description.value,
+        color: e.target.elements.color.value,
+        size: e.target.elements.size.value,
+        price: e.target.elements.price.value,
+        category: e.target.elements.categories.value,
+        image: [
+          e.target.elements.image1.value,
+          e.target.elements.image2.value,
+          e.target.elements.image3.value,
+        ],
+      });
+    } else {
+      x = await API.CreateProduct(
+        {
+          title: e.target.elements.title.value,
+          description: e.target.elements.description.value,
+          color: e.target.elements.color.value,
+          size: e.target.elements.size.value,
+          price: e.target.elements.price.value,
+          category: e.target.elements.categories.value,
+          image: [
+            e.target.elements.image1.value,
+            e.target.elements.image2.value,
+            e.target.elements.image3.value,
+          ],
+        },
+        Cookies.getAuth()
+      );
+    }
     handleAlert({
       open: true,
       success: x.success,
@@ -86,14 +112,17 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
         <div className="shadow sm:rounded-md sm:overflow-hidden">
           <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
             <div>
-              <h3 className="text-lg leading-6 font-medium text-gray-900">Edit product</h3>
-   
-      
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Edit product
+              </h3>
             </div>
 
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-5">
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Title
                 </label>
                 <input
@@ -107,7 +136,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 />
               </div>
               <div className="col-span-6 sm:col-span-5">
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Description
                 </label>
                 <div className="mt-1">
@@ -122,10 +154,15 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                     defaultValue={""}
                   />
                 </div>
-                <p className="mt-2 text-sm text-gray-500">Brief description for your profile. URLs are hyperlinked.</p>
+                <p className="mt-2 text-sm text-gray-500">
+                  Brief description for your profile. URLs are hyperlinked.
+                </p>
               </div>
               <div className="col-span-3 sm:col-span-3">
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="price"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Price
                 </label>
                 <input
@@ -139,7 +176,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 />
               </div>
               <div className="col-span-3 sm:col-span-2 h-full ">
-                <label htmlFor="color" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="color"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Color
                 </label>
                 <input
@@ -153,7 +193,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 />
               </div>
               <div className="col-span-3 sm:col-span-3">
-                <label htmlFor="categories" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="categories"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Categories
                 </label>
                 <select
@@ -170,7 +213,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 </select>
               </div>
               <div className="col-span-3 sm:col-span-2">
-                <label htmlFor="size" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="size"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Size
                 </label>
                 <select
@@ -190,7 +236,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 </select>
               </div>
               <div className="col-span-4 sm:col-span-5 lg:col-span-5">
-                <label htmlFor="image1" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="image1"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Link Image 1
                 </label>
                 <input
@@ -204,7 +253,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 />
               </div>
               <div className="col-span-4 sm:col-span-5 lg:col-span-5">
-                <label htmlFor="image2" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="image2"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Link Image 2
                 </label>
                 <input
@@ -218,7 +270,10 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
                 />
               </div>
               <div className="col-span-4 sm:col-span-5 lg:col-span-5">
-                <label htmlFor="image3" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="image3"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Link Image 3
                 </label>
                 <input
@@ -233,20 +288,19 @@ const EditProduct = ({ id, setForm, handleAlert }) => {
               </div>
             </div>
           </div>
-  
+
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 ">
-          {product.isActive && (
- 
-                <button
-                  onClick={() => {
-                    DeleteProduct(product._id);
-                  }}
-                  type="button"
-                  className="bg-red-600 mx-10 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Delete Product
-                </button>
-                   )}
+            {product.isActive && (
+              <button
+                onClick={() => {
+                  DeleteProduct(product._id);
+                }}
+                type="button"
+                className="bg-red-600 mx-10 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Delete Product
+              </button>
+            )}
             <button
               type="submit"
               className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-10 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
