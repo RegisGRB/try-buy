@@ -47,6 +47,12 @@ build/Release
 node_modules/
 jspm_packages/
 
+category
+comp
+landing
+product
+shit
+toncodebg
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
