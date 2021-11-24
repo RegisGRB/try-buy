@@ -7,7 +7,6 @@ const PwaInstall = ({ className }) => {
 
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (e) => {
-      alert(e)
       setSupportsPWA(e);
     });
   },[]);
